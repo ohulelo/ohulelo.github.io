@@ -1,0 +1,160 @@
+/* --- Common UI Components --- */
+
+/* --- Blockquotes & Banners --- */
+.landing-quote-section {
+    height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 200px;
+    padding-bottom: 0;
+    position: relative;
+}
+
+.custom-blockquote {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.8;
+    padding: var(--space-lg) var(--space-xl);
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-accent-dim);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.custom-blockquote:hover {
+    transform: scale(1.02);
+    border-color: var(--color-accent) !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+/* --- Section Headers --- */
+.section-header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+}
+
+.section-subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    margin-top: calc(var(--space-sm) * -1);
+}
+
+.section-instruction {
+    color: var(--color-text);
+    opacity: 0.85;
+    font-size: 0.95rem;
+    margin-top: calc(var(--space-xs));
+}
+
+/* --- Tab Navigation Buttons --- */
+.tab-btn {
+    background: transparent;
+    border: 1px solid var(--color-accent-dim);
+    color: var(--color-text-muted);
+    padding: 8px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: var(--font-primary);
+    transition: all var(--transition-fast);
+}
+
+.tab-btn:hover,
+.tab-btn.active {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border-color: var(--color-accent);
+}
+
+/* --- Interactive Tooltips --- */
+.custom-tooltip {
+    position: relative;
+    cursor: help;
+    border-bottom: 1px dotted var(--color-text-muted);
+}
+
+.custom-tooltip .custom-tooltip-text {
+    visibility: hidden;
+    width: 250px;
+    background-color: var(--tooltip-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--color-text-main);
+    text-align: center;
+    border-radius: 8px;
+    padding: var(--space-sm) var(--space-md);
+    position: absolute;
+    z-index: 100;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+    font-size: 0.85rem;
+    font-family: var(--font-primary);
+    line-height: 1.4;
+    border: 1px solid var(--color-accent-dim);
+    box-shadow: 0 4px 20px var(--tooltip-shadow);
+    pointer-events: none;
+}
+
+.custom-tooltip .custom-tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--tooltip-bg) transparent transparent transparent;
+}
+
+.custom-tooltip:hover .custom-tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* --- Quote Divider Sections (index.html only) --- */
+.quote-divider-section {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+}
+
+@media (max-width: 768px) {
+    .quote-divider-section {
+        padding-top: var(--space-lg);
+        padding-bottom: var(--space-lg);
+    }
+
+    .landing-quote-section {
+        height: 280px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 130px;
+        padding-bottom: 0;
+    }
+
+    .custom-blockquote {
+        padding: var(--space-md) var(--space-md);
+        font-size: 1rem;
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+    }
+
+    .section-instruction {
+        font-size: 0.9rem;
+    }
+}

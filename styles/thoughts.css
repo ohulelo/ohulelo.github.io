@@ -1,0 +1,203 @@
+/* --- Thought Cards Grid --- */
+
+.thoughts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+    align-items: start;
+}
+
+.thought-card {
+    background: var(--color-bg-alt);
+    padding: var(--space-lg) var(--space-md);
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+    display: block;
+    transition: all 0.4s ease;
+}
+
+.thought-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border-color: var(--color-text-muted);
+}
+
+.thought-card .thought-date {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-xs);
+    font-family: var(--font-primary);
+}
+
+.thought-card .thought-title {
+    font-family: var(--font-primary);
+    font-size: 1.4rem;
+    margin-bottom: var(--space-md);
+    color: var(--color-text-main);
+    transition: color 0.2s ease;
+}
+
+.thought-card:hover .thought-title {
+    color: var(--color-link);
+}
+
+.thought-card .thought-preview {
+    font-family: var(--font-secondary);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--color-text-main);
+}
+
+.thought-card .thought-more {
+    margin-top: var(--space-md);
+    color: var(--color-accent);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.thought-card.expandable {
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    min-height: 380px;
+    max-height: 380px;
+    transition: max-height 1s cubic-bezier(0.25, 1, 0.5, 1), transform var(--transition-normal) ease, box-shadow var(--transition-normal) ease, border-color var(--transition-normal) ease;
+}
+
+.thought-card.expandable.expanded {
+    max-height: 5000px;
+}
+
+.thought-card.expandable:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border-color: var(--color-text-muted);
+}
+
+.thought-card.expandable .full-text {
+    display: none;
+    opacity: 0;
+    animation: fadeIn 0.4s ease forwards;
+}
+
+.thought-card.expandable.expanded .full-text {
+    display: block;
+    opacity: 1;
+    margin-top: var(--space-xs);
+}
+
+/* Gradient Fade for Unexpanded Cards */
+.thought-card.expandable .expand-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(to bottom, rgba(var(--color-bg-alt-rgb), 0) 0%, rgba(var(--color-bg-alt-rgb), 0.95) 70%, rgba(var(--color-bg-alt-rgb), 1) 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: var(--space-lg);
+    pointer-events: none;
+}
+
+.thought-card.expandable .expand-label {
+    font-size: 0.85rem;
+    font-family: var(--font-primary);
+    color: var(--color-text-main);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    transition: background 0.2s ease;
+}
+
+.thought-card.expandable:hover .expand-label {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.thought-card.expandable.expanded .expand-fade {
+    display: none;
+}
+
+/* --- Shimmer Loading Animation --- */
+
+.thought-card.is-loading .thought-title,
+.thought-card.is-loading .preview-text {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-accent-dim);
+    border-radius: 4px;
+    color: transparent !important;
+    min-height: 1.2em;
+}
+
+.thought-card.is-loading .thought-title {
+    width: 60%;
+    margin-bottom: var(--space-md);
+}
+
+.thought-card.is-loading .preview-text {
+    width: 100%;
+    height: 4.5em;
+}
+
+.thought-card.is-loading .thought-title::after,
+.thought-card.is-loading .preview-text::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.essay-article {
+    max-width: var(--essay-max-width);
+    margin: 0 auto;
+}
+
+/* --- Responsive Media Queries --- */
+
+@media (max-width: 900px) {
+    .thoughts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .thoughts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .thought-card {
+        padding: var(--space-md) var(--space-sm);
+    }
+
+    .thought-card .thought-title {
+        font-size: 1rem;
+        margin-bottom: var(--space-sm);
+    }
+
+    .thought-card .thought-preview {
+        font-size: 0.8rem;
+        line-height: 1.6;
+    }
+}

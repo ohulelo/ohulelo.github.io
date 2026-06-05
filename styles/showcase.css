@@ -1,0 +1,363 @@
+/* --- Showcase Base & Typography --- */
+
+.showcase-placeholder {
+    padding: var(--space-lg);
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-accent-dim);
+    border-radius: var(--radius-md);
+    text-align: center;
+    color: var(--color-text-muted);
+}
+
+
+
+/* --- Tab Navigation --- */
+.showcase-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+}
+
+.tab-btn {
+    background: transparent;
+    border: 1px solid var(--color-accent-dim);
+    color: var(--color-text-muted);
+    padding: 8px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: var(--font-primary);
+    transition: all var(--transition-fast);
+}
+
+.tab-btn:hover,
+.tab-btn.active {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border-color: var(--color-accent);
+}
+
+/* --- Media Grids & Showcase Items --- */
+.grid-container {
+    display: none;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    justify-content: center;
+    gap: var(--space-md);
+    animation: fadeIn 0.4s ease;
+}
+
+.grid-item.layout-landscape {
+    grid-column: 1 / -1;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.grid-container.active {
+    display: grid;
+}
+
+.grid-item {
+    background: var(--color-bg-alt);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition-normal) ease, box-shadow var(--transition-normal) ease, border-color var(--transition-normal) ease;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+}
+
+.grid-item:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.item-visual {
+    width: 100%;
+    background-color: #1a1a1f;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Aspect Ratios for Collections */
+.book-cover {
+    aspect-ratio: 2 / 3;
+}
+
+.film-still {
+    aspect-ratio: 2 / 3;
+}
+
+.album-art {
+    aspect-ratio: 1 / 1;
+}
+
+.map-visual {
+    aspect-ratio: 4 / 3;
+}
+
+.restaurant-photo {
+    aspect-ratio: 4 / 3;
+}
+
+.item-meta {
+    padding: var(--space-sm);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.item-meta h3 {
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+    font-family: var(--font-primary);
+    font-weight: 500;
+}
+
+.item-meta p {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+/* Commentary Overlay on Hover */
+.item-commentary {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--tooltip-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--color-text-main);
+    padding: var(--space-lg) var(--space-md);
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: bottom var(--transition-normal) ease-in-out;
+    z-index: 10;
+    border-radius: var(--radius-md);
+}
+
+
+.grid-item:hover .item-commentary {
+    bottom: 0;
+}
+
+/* --- Music & Playlist Cards --- */
+.music-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.playlist-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    width: 100%;
+    margin-bottom: var(--space-xl);
+}
+
+.playlist-category-wrapper {
+    text-align: center;
+    margin-top: calc(var(--space-md) * -1);
+    margin-bottom: calc(var(--space-md) * -1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+}
+
+.playlist-category-wrapper:first-child {
+    margin-top: var(--space-sm);
+}
+
+.playlist-category {
+    font-family: var(--font-primary);
+    font-size: 2rem;
+    color: var(--color-text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    width: 100%;
+}
+
+.playlist-category::before,
+.playlist-category::after {
+    content: "";
+    flex: 1;
+    max-width: 80px;
+    height: 1px;
+    background-color: var(--color-accent);
+}
+
+.playlist-category-desc {
+    font-family: var(--font-primary);
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.playlist-card {
+    background: var(--color-bg-alt);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    margin: -10px;
+}
+
+.playlist-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    border-color: var(--color-accent-dim);
+}
+
+.playlist-embed-wrapper {
+    width: 100%;
+    height: 450px;
+    background: #000;
+}
+
+.playlist-embed-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.playlist-commentary {
+    padding: var(--space-md);
+    border-top: 1px solid var(--glass-border);
+}
+
+.commentary-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.commentary-header h4 {
+    margin: 0;
+    font-family: var(--font-primary);
+    font-size: 1.2rem;
+    color: var(--color-accent);
+}
+
+.playlist-commentary p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    font-style: italic;
+    margin: 0;
+}
+
+/* --- Responsive Media Queries --- */
+@media (max-width: 900px) {
+    .playlist-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .playlist-row {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: var(--space-sm) !important;
+    }
+
+    .item-meta h3 {
+        font-size: 0.95rem !important;
+    }
+
+    .item-meta p {
+        font-size: 0.8rem !important;
+    }
+}
+
+/* --- Sub Section Headers (Responsive Books/Films Dividers) --- */
+.sub-section-header {
+    grid-column: 1 / -1;
+    margin-top: var(--space-xl);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-accent-dim);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.sub-section-header h3 {
+    font-size: 1.2rem !important;
+    color: var(--color-text-muted) !important;
+    margin: 0 !important;
+}
+
+.sub-section-header .sub-header-link {
+    font-size: 0.85rem !important;
+    color: var(--color-text-main) !important;
+    text-decoration: none !important;
+    border: 1px solid var(--color-text-muted) !important;
+    padding: 4px 12px !important;
+    border-radius: 20px !important;
+    transition: all 0.2s ease !important;
+    white-space: nowrap !important;
+}
+
+.sub-section-header .sub-header-link:hover {
+    background-color: var(--color-text-main) !important;
+    color: var(--color-bg) !important;
+}
+
+@media (max-width: 600px) {
+    .sub-section-header {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: var(--space-xs) !important;
+    }
+
+    .sub-section-header h3 {
+        font-size: 0.95rem !important;
+    }
+
+    .sub-section-header .sub-header-link {
+        font-size: 0.75rem !important;
+        padding: 4px 8px !important;
+    }
+
+    .item-commentary {
+        font-size: 0.85rem;
+        padding: var(--space-sm) var(--space-sm)
+    }
+
+    .item-meta {
+        padding: var(--space-xs);
+    }
+}
