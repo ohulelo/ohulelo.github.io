@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Viridien Interview - Tunç Türker</title>
+  <title>ACE - Lensing Emulator - 15th IDPASC Summer School</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,9 +16,20 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css" />
 
+  <!-- Reveal.js Print PDF Stylesheet Injection -->
+  <script>
+    if (window.location.search.match(/print-pdf/gi)) {
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/css/print/pdf.css';
+      document.getElementsByTagName('head')[0].appendChild(link);
+    }
+  </script>
+
   <style>
     .highlight {
-      background-color: #E6DD83;
+      background-color: var(--highlight);
       padding: 4px 8px;
       color: var(--highlight) !important;
       background: none !important;
@@ -27,18 +38,24 @@
     }
 
     :root {
-      --viridien-purple: #6B2D8B;
-      --viridien-light: #9B5DC0;
-      --accent: #C084FC;
-      --text: #F1F0F4;
-      --muted: #A09AB0;
-      --bg-dark: #07050a;
-      --bg-card: rgba(26, 22, 36, 0.45);
-      --highlight: #E879F9;
+      --idpasc-brand: #38BDF8;
+      /* Sky blue primary */
+      --accent: #00F0FF;
+      /* Neon Cyan accent */
+      --text: #F8FAFC;
+      /* Crisp slate white */
+      --muted: #94A3B8;
+      /* Slate gray */
+      --bg-dark: #020617;
+      /* Deep slate-black */
+      --bg-card: rgba(15, 23, 42, 0.45);
+      /* Translucent slate card */
+      --highlight: #F59E0B;
+      /* Golden Amber */
     }
 
     .reveal-viewport {
-      background: radial-gradient(circle at 50% 50%, #1a1429 0%, #07050a 100%) !important;
+      background: radial-gradient(circle at 50% 50%, #0F172A 0%, #020617 100%) !important;
     }
 
     .reveal {
@@ -64,7 +81,7 @@
       color: var(--accent);
       margin-bottom: 0.4em;
       display: inline-block;
-      border-bottom: 2px solid var(--viridien-purple);
+      border-bottom: 2px solid var(--idpasc-brand);
       padding-bottom: 0.1em;
     }
 
@@ -76,7 +93,7 @@
     .title-slide h1 {
       font-size: 2.0em;
       font-weight: 800;
-      background: linear-gradient(135deg, var(--text) 40%, var(--accent) 100%);
+      background: linear-gradient(135deg, var(--text) 40%, var(--idpasc-brand) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 0.2em;
@@ -85,7 +102,7 @@
 
     .reveal .subtitle {
       font-size: 0.8em;
-      color: var(--accent);
+      color: var(--idpasc-brand);
       margin-bottom: 1.0em;
       font-weight: 400;
     }
@@ -99,59 +116,8 @@
     .title-slide .divider {
       width: 100px;
       height: 3px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      margin: 1.0em auto;
-    }
-
-    /* Journey / timeline */
-    .journey {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8em;
-      margin-top: 0.6em;
-    }
-
-    .journey-item {
-      display: flex;
-      align-items: center;
-      gap: 1.2em;
-    }
-
-    .journey-logo {
-      width: 120px;
-      height: 100px;
-      border-radius: 8px;
-      background: white;
-      border: 1px solid var(--viridien-light);
-      padding: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      box-shadow: 0 0 10px rgba(155, 93, 192, 0.25);
-    }
-
-    .journey-logo img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
-
-    .journey-item .year {
-      font-size: 0.5em;
-      color: var(--accent);
-      font-weight: 700;
-      min-width: 80px;
-    }
-
-    .journey-item .desc {
-      font-size: 0.5em;
-      color: var(--text);
-      line-height: 1.5;
-    }
-
-    .journey-item .desc strong {
-      color: var(--accent);
+      background: linear-gradient(90deg, transparent, var(--idpasc-brand), transparent);
+      margin: .8em auto .5em auto;
     }
 
     /* Skill pills */
@@ -166,14 +132,14 @@
       font-size: 0.4em;
       padding: 0.35em 0.8em;
       border-radius: 999px;
-      border: 1px solid rgba(155, 93, 192, 0.4);
+      border: 1px solid rgba(56, 189, 248, 0.4);
       color: var(--accent);
-      background: rgba(107, 45, 139, 0.15);
+      background: rgba(14, 165, 233, 0.15);
       transition: all 0.3s;
     }
 
     .pill:hover {
-      background: rgba(107, 45, 139, 0.3);
+      background: rgba(14, 165, 233, 0.3);
       border-color: var(--accent);
       transform: scale(1.05);
     }
@@ -185,7 +151,7 @@
       color: var(--text);
       margin-top: 0.1em;
       margin-bottom: 0.4em;
-      border-bottom: 2px solid var(--viridien-purple);
+      border-bottom: 2px solid var(--idpasc-brand);
       padding-bottom: 0.2em;
     }
 
@@ -257,7 +223,7 @@
     }
 
     .pipe-arrow {
-      color: var(--viridien-light);
+      color: var(--idpasc-brand);
       font-size: 0.7em;
       flex-shrink: 0;
       font-weight: 700;
@@ -268,7 +234,7 @@
     .metric-card,
     .pipe-step {
       background: var(--bg-card) !important;
-      border: 1px solid rgba(155, 93, 192, 0.25) !important;
+      border: 1px solid rgba(56, 189, 248, 0.25) !important;
       border-radius: 10px !important;
       backdrop-filter: blur(12px) saturate(180%);
       -webkit-backdrop-filter: blur(12px) saturate(180%);
@@ -349,7 +315,7 @@
     /* Quote */
     .quote-box {
       border-left: 4px solid var(--accent);
-      background: rgba(192, 132, 252, 0.05);
+      background: rgba(0, 240, 255, 0.05);
       border-radius: 0 8px 8px 0;
       padding: 0.6em 1.0em;
       margin-top: 0.8em;
@@ -375,16 +341,14 @@
       font-family: sans-serif;
     }
 
-    /* Viridien logo text */
-    .viridien-tag {
+    /* IDPASC logo text */
+    .idpasc-tag {
       font-size: 0.38em;
-      color: var(--viridien-light);
+      color: var(--idpasc-brand);
       letter-spacing: 0.15em;
       text-transform: uppercase;
       font-weight: 600;
     }
-
-
 
     /* Image zoom modal overlay */
     .image-modal {
@@ -395,7 +359,7 @@
       top: 0;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(7, 5, 10, 0.95);
+      background-color: rgba(2, 6, 23, 0.95);
       align-items: center;
       justify-content: center;
       cursor: zoom-out;
@@ -408,7 +372,7 @@
       max-height: 90%;
       object-fit: contain;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-      border: 2px solid rgba(155, 93, 192, 0.4);
+      border: 2px solid rgba(56, 189, 248, 0.4);
       border-radius: 12px;
     }
 
@@ -426,7 +390,7 @@
       max-width: 30%;
       object-fit: contain;
       border-radius: 10px;
-      border: 1.5px solid rgba(155, 93, 192, 0.35);
+      border: 1.5px solid rgba(56, 189, 248, 0.35);
     }
 
     /* Click-to-bold words */
@@ -457,7 +421,7 @@
       text-align: center;
       font-weight: 700;
       color: var(--accent);
-      border-bottom: 2px solid var(--viridien-purple);
+      border-bottom: 2px solid var(--idpasc-brand);
     }
 
     .reveal table.comparison-table thead th:first-child {
@@ -466,11 +430,11 @@
     }
 
     .reveal table.comparison-table tbody tr {
-      border-bottom: 1px solid rgba(107, 45, 139, 0.4);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.4);
     }
 
     .reveal table.comparison-table tbody tr:nth-child(even) {
-      background: rgba(107, 45, 139, 0.08);
+      background: rgba(56, 189, 248, 0.08);
     }
 
     .reveal table.comparison-table tbody td {
@@ -508,255 +472,148 @@
     <div class="slides">
 
       <!-- ============================================================ -->
-      <!-- PART 1: ABOUT ME                                            -->
+      <!-- PART 1: TITLE SLIDES SEQUENCE (BUILD-UP ANIMATION)           -->
       <!-- ============================================================ -->
 
-      <!-- SLIDE 1: Title / Who I am -->
-      <section class="title-slide">
-        <p class="viridien-tag">Viridien - Tech Talent Program</p>
-        <div class="divider"></div>
-        <h1>Özgen <strong>Tunç</strong> Türker</h1>
-        <p class="subtitle">PhD Candidate in Numerical Cosmology · UFES, Brazil</p>
-        <p class="meta">
-          Istanbul Technical University &nbsp;·&nbsp; BSc Electrical Engineering (2015–2019)<br />
-          Sorbonne University &nbsp;·&nbsp; MSc Physics (2019–2021)<br />
-          Federal University of Espírito Santo &nbsp;·&nbsp; PhD in Numerical Cosmology (2022–2026)<br />
-        </p>
-        <div class="divider"></div>
-        <p class="meta">1 July 2026 </p>
-      </section>
-
-      <!-- Intro Images Slide (zen.jpg and 123.jpg) -->
+      <!-- Slide 1: Title Stack (Opening Page + 5 Nested Pages) -->
       <section>
-        <span class="section-label">Foundation</span>
-        <h2>Books That Influenced Me</h2>
-        <div
-          style="display:flex; gap:1.5em; justify-content:center; align-items:stretch; width:100%; margin-top:0.8em;">
-          <div class="compare-box"
-            style="flex:1; display:flex; flex-direction:column; align-items:center; padding:1em !important; background:rgba(255,255,255,0.03) !important;">
-            <div
-              style="width:100%; height:260px; display:flex; align-items:center; justify-content:center; border-radius:8px; overflow:hidden;">
-              <img src="status_anxiety.jpg"
-                style="max-height:100%; max-width:100%; object-fit:contain; cursor:zoom-in;" />
-            </div>
-            <div style="margin-top:0.6em; font-size:0.42em; color:var(--accent); font-weight:700;">Status Anxiety</div>
-            <div style="font-size:0.35em; color:var(--muted);">Alain de Botton</div>
-          </div>
-          <div class="compare-box"
-            style="flex:1; display:flex; flex-direction:column; align-items:center; padding:1em !important; background:rgba(255,255,255,0.03) !important;">
-            <div
-              style="width:100%; height:260px; display:flex; align-items:center; justify-content:center; border-radius:8px; overflow:hidden;">
-              <img src="123.jpg" style="max-height:100%; max-width:100%; object-fit:contain; cursor:zoom-in;" />
-            </div>
-            <div style="margin-top:0.6em; font-size:0.42em; color:var(--accent); font-weight:700;">One Two Three...
-              Infinity</div>
-            <div style="font-size:0.35em; color:var(--muted);">George Gamow</div>
-          </div>
-          <div class="compare-box"
-            style="flex:1; display:flex; flex-direction:column; align-items:center; padding:1em !important; background:rgba(255,255,255,0.03) !important;">
-            <div
-              style="width:100%; height:260px; display:flex; align-items:center; justify-content:center; border-radius:8px; overflow:hidden;">
-              <img src="zen.jpg" style="max-height:100%; max-width:100%; object-fit:contain; cursor:zoom-in;" />
-            </div>
-            <div style="margin-top:0.6em; font-size:0.42em; color:var(--accent); font-weight:700;">Zen & Art of
-              Motorcycle Maintenance</div>
-            <div style="font-size:0.35em; color:var(--muted);">Robert M. Pirsig</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 2: My Journey + Skills -->
-      <section>
-        <!-- Sub-slide 1: Timeline -->
-        <section>
-          <span class="section-label">Education</span>
-          <h2>The Journey: <br />From engineering to fundamental science</h2>
-          <div>
-            <div class="journey">
-              <div class="journey-item" style="display:flex; align-items:center; gap:1.2em;">
-                <div class="journey-logo">
-                  <img src="itu_logo.png" alt="ITU Logo" />
-                </div>
-                <div class="year">2015 - 2019</div>
-                <div class="desc"><strong>BSc Electrical Engineering</strong><br />Istanbul Technical University ·
-                  Istanbul, Turkey</div>
-              </div>
-              <div class="journey-item" style="display:flex; align-items:center; gap:1.2em;">
-                <div class="journey-logo">
-                  <img src="Logo_of_Sorbonne_University.svg.png" alt="Sorbonne Logo" />
-                </div>
-                <div class="year">2019 - 2021</div>
-                <div class="desc"><strong>MSc Physics</strong><br />Sorbonne University · Paris, France</div>
-              </div>
-              <div class="journey-item" style="display:flex; align-items:center; gap:1.2em;">
-                <div class="journey-logo">
-                  <img src="Logo_Ufes.png" alt="UFES Logo" />
-                </div>
-                <div class="year">2022 - 2026</div>
-                <div class="desc"><strong>PhD in Numerical Cosmology</strong><br />Federal University of Espírito Santo
-                  ·
-                  Vitória, Brazil</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Sub-slide 2: BSc details -->
-        <section>
-          <span class="section-label">Education · 2015–2019</span>
-          <div
-            style="display:flex; align-items:center; gap:1.2em; margin-bottom:0.8em; padding-bottom:0.3em; border-bottom:1.5px solid rgba(155, 93, 192, 0.35);">
-            <div
-              style="width:76px; height:76px; background:white; border-radius:8px; padding:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-              <img src="itu_logo.png" style="max-height:100%; max-width:100%; object-fit:contain;" />
-            </div>
-            <div>
-              <h2 style="margin:0; border:none; padding:0; font-size:1.05em; font-weight:700;">BSc Electrical
-                Engineering - ITU</h2>
-              <p style="margin:0; font-size:0.42em; color:var(--muted);">Istanbul Technical University · Istanbul,
-                Turkey</p>
-            </div>
-          </div>
-          <div style="display:flex; justify-content:center; margin-top:0.8em;">
-            <img src="roverteam.png"
-              style="max-width:85%; max-height:300px; border-radius:10px; border:1.5px solid rgba(155, 93, 192, 0.35); object-fit:contain;" />
-          </div>
-        </section>
-
-        <!-- Sub-slide 3: MSc details -->
-        <section>
-          <span class="section-label">Education · 2019–2021</span>
-          <div
-            style="display:flex; align-items:center; gap:1.2em; margin-bottom:0.8em; padding-bottom:0.3em; border-bottom:1.5px solid rgba(155, 93, 192, 0.35);">
-            <div
-              style="width:76px; height:76px; background:white; border-radius:8px; padding:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-              <img src="Logo_of_Sorbonne_University.svg.png"
-                style="max-height:100%; max-width:100%; object-fit:contain;" />
-            </div>
-            <div>
-              <h2 style="margin:0; border:none; padding:0; font-size:1.05em; font-weight:700;">MSc Physics - Sorbonne
-                University</h2>
-              <p style="margin:0; font-size:0.42em; color:var(--muted);">Sorbonne Université · Paris, France</p>
-            </div>
-          </div>
-          <div style="display:flex; gap:0.8em; margin-top:0.8em; justify-content:center;">
-            <div
-              style="flex:1.2; width:38%; height:180px; background:white; border-radius:10px; padding:10px; display:flex; align-items:center; justify-content:center; border:1.5px solid rgba(155, 93, 192, 0.35);">
-              <img src="paris.png" style="max-height:100%; max-width:100%; object-fit:contain;" />
-            </div>
-            <div
-              style="flex:1; width:31%; height:180px; background:white; border-radius:10px; padding:10px; display:flex; align-items:center; justify-content:center; border:1.5px solid rgba(155, 93, 192, 0.35);">
-              <img src="lkb.jpg" style="max-height:100%; max-width:100%; object-fit:contain;" />
-            </div>
-            <div
-              style="flex:1; width:31%; height:180px; background:white; border-radius:10px; padding:10px; display:flex; align-items:center; justify-content:center; border:1.5px solid rgba(155, 93, 192, 0.35);">
-              <img src="strasbourg.png" style="max-height:100%; max-width:100%; object-fit:contain;" />
-            </div>
-          </div>
-        </section>
-
-        <!-- Sub-slide 4: PhD details -->
-        <section>
-          <span class="section-label">Education · 2022–2026</span>
-          <div
-            style="display:flex; align-items:center; gap:1.2em; margin-bottom:0.8em; padding-bottom:0.3em; border-bottom:1.5px solid rgba(155, 93, 192, 0.35);">
-            <div
-              style="width:76px; height:76px; background:white; border-radius:8px; padding:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-              <img src="Logo_Ufes.png" style="max-height:100%; max-width:100%; object-fit:contain;" />
-            </div>
-            <div>
-              <h2 style="margin:0; border:none; padding:0; font-size:1.05em; font-weight:700;">PhD in Numerical
-                Cosmology -
-                UFES</h2>
-              <p style="margin:0; font-size:0.42em; color:var(--muted);">Federal University of Espírito Santo · Vitória,
-                Brasil</p>
-            </div>
-          </div>
-          <div style="display:flex; justify-content:center; width:100%; margin-top:0.8em;">
-            <img src="sdu.png"
-              style="max-height:360px; max-width:90%; border-radius:10px; border:1.5px solid rgba(155, 93, 192, 0.35); object-fit:contain; cursor:zoom-in;" />
-          </div>
-        </section>
-      </section>
-
-
-      <!-- ============================================================ -->
-      <!-- PART 2: TECHNICAL PRESENTATION                              -->
-      <!-- ============================================================ -->
-
-      <!-- Part separator -->
-
-      <section>
+        <!-- Slide 1: Title (Plain) -->
         <section class="title-slide">
-          <p class="viridien-tag">Viridien Tech Talent Program · Part 2 · Technical Presentation</p>
+          <p class="idpasc-tag">15th IDPASC Summer School</p>
           <div class="divider"></div>
           <h1>ACE - Lensing Emulator</h1>
           <p class="subtitle">Accurate cosmological emulator for the probability
             distribution function of gravitational lensing of point sources.</p>
           <div class="divider"></div>
+          <p class="meta">
+            Özgen <strong>Tunç</strong> Türker <br />PhD Candidate · UFES, Brazil<br />
+            July 2026
+          </p>
+          <!-- Affiliation Logos -->
+          <div
+            style="display: flex; justify-content: center; gap: 2em; align-items: center; margin-top: .5em; width: 100%;">
+            <div style="width: 320px; display: flex; justify-content: center; align-items: center;">
+              <img src="ufeslogo.png"
+                style="height: 160px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));" />
+            </div>
+            <div style="width: 320px; display: flex; justify-content: center; align-items: center;">
+              <img src="ppgcosmo.png"
+                style="height: 160px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));" />
+            </div>
+          </div>
         </section>
+
+        <!-- Slide 2: Highlight "emulator" -->
         <section class="title-slide">
-          <p class="viridien-tag">Viridien Tech Talent Program · Part 2 · Technical Presentation</p>
+          <p class="idpasc-tag">15th IDPASC Summer School</p>
           <div class="divider"></div>
           <h1>ACE - Lensing Emulator</h1>
           <p class="subtitle">Accurate cosmological <span class="highlight">emulator</span> for the probability
             distribution function of gravitational lensing of point sources.</p>
           <div class="divider"></div>
+          <p class="meta">
+            Özgen <strong>Tunç</strong> Türker <br />PhD Candidate · UFES, Brazil<br />
+            July 2026
+          </p>
+          <!-- Affiliation Logos -->
+          <div
+            style="display: flex; justify-content: center; gap: 2em; align-items: center; margin-top: .5em; width: 100%;">
+            <div style="width: 320px; display: flex; justify-content: center; align-items: center;">
+              <img src="ufeslogo.png"
+                style="height: 160px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));" />
+            </div>
+            <div style="width: 320px; display: flex; justify-content: center; align-items: center;">
+              <img src="ppgcosmo.png"
+                style="height: 160px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));" />
+            </div>
+          </div>
         </section>
+
+        <!-- Slide 3: Highlight "gravitational lensing" -->
         <section class="title-slide">
-          <p class="viridien-tag">Viridien Tech Talent Program · Part 2 · Technical Presentation</p>
+          <p class="idpasc-tag">15th IDPASC Summer School</p>
           <div class="divider"></div>
           <h1>ACE - Lensing Emulator</h1>
           <p class="subtitle">Accurate cosmological emulator for the probability
             distribution function of <span class="highlight">gravitational lensing</span> of point sources.</p>
           <div class="divider"></div>
-        </section>
-        <!-- Sub-slide 5: Two lensing images side-by-side -->
-        <section class="title-slide">
-          <p class="viridien-tag">Gravitational Lensing</p>
-          <div class="divider" style="margin: 0.5em auto;"></div>
+          <p class="meta">
+            Özgen <strong>Tunç</strong> Türker <br />PhD Candidate · UFES, Brazil<br />
+            July 2026
+          </p>
+          <!-- Affiliation Logos -->
           <div
-            style="display:flex; gap:1.2em; justify-content:center; align-items:center; width:100%; margin-top:0.6em;">
-            <div style="flex:1; display:flex; justify-content:center;">
-              <img src="gravitational_lensing1.png"
-                style="max-height:350px; max-width:100%; border-radius:10px; border:1.5px solid rgba(155, 93, 192, 0.35); cursor:zoom-in; object-fit:contain;" />
+            style="display: flex; justify-content: center; gap: 2em; align-items: center; margin-top: .5em; width: 100%;">
+            <div style="width: 320px; display: flex; justify-content: center; align-items: center;">
+              <img src="ufeslogo.png"
+                style="height: 160px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));" />
+            </div>
+            <div style="width: 320px; display: flex; justify-content: center; align-items: center;">
+              <img src="ppgcosmo.png"
+                style="height: 160px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));" />
             </div>
           </div>
         </section>
+
+
+        <!-- Slide 5: Gravitational Lensing Visual 2 -->
         <section class="title-slide">
-          <p class="viridien-tag">Gravitational Lensing</p>
+          <p class="idpasc-tag">Gravitational Lensing</p>
           <div class="divider" style="margin: 0.5em auto;"></div>
           <div style="display:flex; justify-content:center; width:100%; margin-top:0.6em;">
             <img src="gravitational_lensing0.png"
-              style="max-height:370px; max-width:90%; border-radius:10px; border:1.5px solid rgba(155, 93, 192, 0.35); cursor:zoom-in; object-fit:contain;" />
+              style="max-height:370px; max-width:90%; border-radius:10px; border:1.5px solid rgba(56, 189, 248, 0.35); cursor:zoom-in; object-fit:contain;" />
           </div>
         </section>
 
-        <!-- Sub-slide 6: Single lensing image -->
+        <!-- Slide 6: Gravitational Lensing Visual 3 -->
         <section class="title-slide">
-          <p class="viridien-tag">Gravitational Lensing</p>
+          <p class="idpasc-tag">Gravitational Lensing</p>
           <div class="divider" style="margin: 0.5em auto;"></div>
           <div style="display:flex; justify-content:center; width:100%; margin-top:0.6em;">
             <img src="gravitational_lensing.png"
-              style="max-height:370px; max-width:90%; border-radius:10px; border:1.5px solid rgba(155, 93, 192, 0.35); cursor:zoom-in; object-fit:contain;" />
+              style="max-height:370px; max-width:90%; border-radius:10px; border:1.5px solid rgba(56, 189, 248, 0.35); cursor:zoom-in; object-fit:contain;" />
           </div>
         </section>
+
+
+        <!-- Slide 7: Highlight "point sources" -->
         <section class="title-slide">
-          <p class="viridien-tag">Viridien Tech Talent Program · Part 2 · Technical Presentation</p>
+          <p class="idpasc-tag">15th IDPASC Summer School</p>
           <div class="divider"></div>
           <h1>ACE - Lensing Emulator</h1>
           <p class="subtitle">Accurate cosmological emulator for the probability
             distribution function of gravitational lensing of <span class="highlight">point sources.</span> </p>
           <div class="divider"></div>
+          <p class="meta">
+            Özgen <strong>Tunç</strong> Türker <br />PhD Candidate · UFES, Brazil<br />
+            July 2026
+          </p>
+          <!-- Affiliation Logos -->
+          <div
+            style="display: flex; justify-content: center; gap: 2em; align-items: center; margin-top: .5em; width: 100%;">
+            <div style="width: 320px; display: flex; justify-content: center; align-items: center;">
+              <img src="ufeslogo.png"
+                style="height: 160px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));" />
+            </div>
+            <div style="width: 320px; display: flex; justify-content: center; align-items: center;">
+              <img src="ppgcosmo.png"
+                style="height: 160px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));" />
+            </div>
+          </div>
         </section>
       </section>
-      </section>
 
-      <!-- SLIDE: Problem -->
+
+      <!-- ============================================================ -->
+      <!-- PART 2: PROBLEM & METHODOLOGY                                -->
+      <!-- ============================================================ -->
+
       <section>
+        <!-- Slide 8: Problem -->
         <section>
           <span class="section-label">Problem</span>
-          <h2>Noise or Signal?</h2>
+          <h2>Noise or Meaningful data?</h2>
 
           <div class="body-text" style="margin-top: 0.8em; margin-bottom: 0.8em;">
             Gravitational lensing <strong>distorts</strong> the light from distant objects.
@@ -764,68 +621,74 @@
 
           <div style="display:flex; justify-content:center; width:100%;">
             <img src="gravitational_lensing.png"
-              style="max-height:360px; max-width:90%; border-radius:10px; border:1.5px solid rgba(155, 93, 192, 0.35); object-fit:contain;" />
+              style="max-height:360px; max-width:90%; border-radius:10px; border:1.5px solid rgba(56, 189, 248, 0.35); object-fit:contain;" />
           </div>
           <div class="body-text" style="margin-top: 0.8em; margin-bottom: 0.8em; text-align: center;">
-            What does this large structure depend on?
+            How does this lensing effect depend on cosmology?
           </div>
         </section>
 
+        <!-- Slide 9: Gaussian Treatment -->
         <section>
           <span class="section-label">Methodology</span>
           <h2>Gaussian Treatment</h2>
           <div style="display:flex; justify-content:center; width:100%;">
             <img src="gaus.png"
-              style="max-height:500px; max-width:100%; border-radius:10px; border:1.5px solid rgba(155, 93, 192, 0.35); object-fit:contain;" />
+              style="max-height:500px; max-width:100%; border-radius:10px; border:1.5px solid rgba(56, 189, 248, 0.35); object-fit:contain;" />
           </div>
         </section>
 
+        <!-- Slide 10: Theoretical Modeling -->
         <section>
           <span class="section-label">Methodology</span>
           <h2>Theoretical Modeling</h2>
           <div style="display:flex; justify-content:center; width:100%; padding-top: 100px;">
             <img src="swisscheese.png"
-              style="max-height:500px; max-width:100%; border-radius:10px; border:1.5px solid rgba(155, 93, 192, 0.35); object-fit:contain;" />
+              style="max-height:500px; max-width:100%; border-radius:10px; border:1.5px solid rgba(56, 189, 248, 0.35); object-fit:contain;" />
           </div>
         </section>
 
+        <!-- Slide 11: Simulations 1 -->
         <section>
           <span class="section-label">Methodology</span>
           <h2>Simulations</h2>
           <div style="display:flex; justify-content:center; width:100%;">
             <img src="simulation.png"
-              style="max-height:500px; max-width:100%; border-radius:10px; border:1.5px solid rgba(155, 93, 192, 0.35); object-fit:contain;" />
+              style="max-height:500px; max-width:100%; border-radius:10px; border:1.5px solid rgba(56, 189, 248, 0.35); object-fit:contain;" />
           </div>
         </section>
 
+        <!-- Slide 12: Simulations 2 -->
         <section>
           <span class="section-label">Methodology</span>
           <h2>Simulations</h2>
           <div style="display:flex; justify-content:center; width:100%;">
             <img src="simulation0.png"
-              style="max-height:400px; max-width:100%; border-radius:10px; border:1.5px solid rgba(155, 93, 192, 0.35); object-fit:contain;" />
+              style="max-height:400px; max-width:100%; border-radius:10px; border:1.5px solid rgba(56, 189, 248, 0.35); object-fit:contain;" />
           </div>
         </section>
 
+        <!-- Slide 13: Simulations 3 -->
         <section>
           <span class="section-label">Methodology</span>
           <h2>Simulations</h2>
           <div style="display:flex; justify-content:center; width:100%;">
             <img src="simulation1.png"
-              style="max-height:400px; max-width:100%; border-radius:10px; border:1.5px solid rgba(155, 93, 192, 0.35); object-fit:contain;" />
+              style="max-height:400px; max-width:100%; border-radius:10px; border:1.5px solid rgba(56, 189, 248, 0.35); object-fit:contain;" />
           </div>
         </section>
 
+        <!-- Slide 14: Simulations 4 -->
         <section>
           <span class="section-label">Methodology</span>
           <h2>Simulations</h2>
           <div style="display:flex; justify-content:center; width:100%;">
             <img src="simulation_last.png"
-              style="max-height:400px; max-width:100%; border-radius:10px; border:1.5px solid rgba(155, 93, 192, 0.35); object-fit:contain;" />
+              style="max-height:400px; max-width:100%; border-radius:10px; border:1.5px solid rgba(56, 189, 248, 0.35); object-fit:contain;" />
           </div>
         </section>
 
-        <!-- Vertical: Context -->
+        <!-- Slide 15: Simulations Metrics -->
         <section>
           <span class="section-label">Methodology</span>
           <h2>Simulations</h2>
@@ -849,12 +712,12 @@
             </div>
             <div style="display:flex; justify-content:center;">
               <img src="lensing_pdf_shape.png"
-                style="max-width:100%; max-height:300px; border-radius:10px; border:1.5px solid rgba(155, 93, 192, 0.35); object-fit:contain;" />
+                style="max-width:100%; max-height:300px; border-radius:10px; border:1.5px solid rgba(56, 189, 248, 0.35); object-fit:contain;" />
             </div>
           </div>
         </section>
 
-        <!-- Slide 6.9: Emulator slide -->
+        <!-- Slide 16: Emulator Setup -->
         <section>
           <span class="section-label">Methodology</span>
           <h2>Emulator</h2>
@@ -867,7 +730,7 @@
                 style="font-size: 0.55em; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.1em;">
                 Parameters</div>
               <div
-                style="border: 1.5px solid var(--viridien-light); border-radius: 10px; padding: 0.8em 1.2em; background: var(--bg-card); display: flex; flex-direction: column; gap: 0.3em; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);">
+                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; padding: 0.8em 1.2em; background: var(--bg-card); display: flex; flex-direction: column; gap: 0.3em; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);">
                 <div
                   style="font-size: 0.65em; color: var(--text); line-height: 1.4; display: flex; align-items: baseline; gap: 0.4em;">
                   <span
@@ -906,7 +769,7 @@
 
             <!-- Arrow -->
             <div
-              style="font-size: 2.2em; color: var(--viridien-light); flex-shrink: 0; line-height: 1; font-weight: 700;">
+              style="font-size: 2.2em; color: var(--idpasc-brand); flex-shrink: 0; line-height: 1; font-weight: 700;">
               →</div>
 
             <!-- Statistics / Plot -->
@@ -915,9 +778,9 @@
                 style="font-size: 0.55em; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.1em;">
                 Statistics</div>
               <div
-                style="border: 1.5px solid var(--viridien-light); border-radius: 10px; overflow: hidden; background: var(--bg-card); width: 100%; display: flex; align-items: center; justify-content: center; padding: 0.1em; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);">
+                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; overflow: hidden; background: var(--bg-card); width: 100%; display: flex; align-items: center; justify-content: center; padding: 0.1em; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);">
                 <img src="pdf.png" alt="Lensing PDF"
-                  style="max-height: 200px; max-width: 100%; max-height: 280px; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
+                  style="max-height: 280px; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
               </div>
               <!-- Metric card below plot -->
               <div class="metric-card"
@@ -928,13 +791,17 @@
             </div>
           </div>
         </section>
-
       </section>
 
-      <!-- SLIDE: Approach -->
+
+      <!-- ============================================================ -->
+      <!-- PART 3: APPROACH & RATIONALE                                 -->
+      <!-- ============================================================ -->
+
       <section>
+        <!-- Slide 17: Rationale Pipeline -->
         <section>
-          <span class="section-label">Approach & Rationale</span>
+          <span class="section-label">Approach & Reasoning</span>
           <h2>How did we tackle it?</h2>
 
           <div class="body-text">
@@ -970,19 +837,21 @@
             </div>
           </div>
         </section>
+
+        <!-- Slide 18: Emulator with Parameters and PDFs -->
         <section>
-          <span class="section-label">Methodology</span>
+          <span class="section-label">Approach</span>
           <h2>Emulator</h2>
 
           <div
-            style="display: flex; align-items: center; justify-content: space-between; gap: 1.5em; width: 100%; margin-top: 0.4em;">
+            style="display: flex; align-items: center; justify-content: space-between; gap: 1.5em; width: 100%; margin-top: 0.2em;">
             <!-- Parameters -->
             <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3em; flex: 0 0 auto;">
               <div
                 style="font-size: 0.55em; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.1em;">
                 Parameters</div>
               <div
-                style="border: 1.5px solid var(--viridien-light); border-radius: 10px; padding: 0.8em 1.2em; background: var(--bg-card); display: flex; flex-direction: column; gap: 0.3em; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);">
+                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; padding: 0.8em 1.2em; background: var(--bg-card); display: flex; flex-direction: column; gap: 0.3em; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);">
                 <div
                   style="font-size: 0.65em; color: var(--text); line-height: 1.4; display: flex; align-items: baseline; gap: 0.4em;">
                   <span
@@ -1021,7 +890,7 @@
 
             <!-- Arrow -->
             <div
-              style="font-size: 2.2em; color: var(--viridien-light); flex-shrink: 0; line-height: 1; font-weight: 700;">
+              style="font-size: 2.2em; color: var(--idpasc-brand); flex-shrink: 0; line-height: 1; font-weight: 700;">
               →</div>
 
             <!-- Statistics / Plot -->
@@ -1030,9 +899,9 @@
                 style="font-size: 0.55em; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.1em;">
                 Statistics</div>
               <div
-                style="border: 1.5px solid var(--viridien-light); border-radius: 10px; overflow: hidden; background: var(--bg-card); width: 100%; display: flex; align-items: center; justify-content: center; padding: 0.1em; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);">
+                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; overflow: hidden; background: var(--bg-card); width: 100%; display: flex; align-items: center; justify-content: center; padding: 0.1em; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);">
                 <img src="pdf.png" alt="Lensing PDF"
-                  style="max-height: 200px; max-width: 100%; max-height: 280px; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
+                  style="max-height: 280px; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
               </div>
               <!-- Metric card below plot -->
               <div class="metric-card"
@@ -1044,8 +913,9 @@
           </div>
         </section>
 
+        <!-- Slide 19: Emulator showing PCA Components -->
         <section>
-          <span class="section-label">Methodology</span>
+          <span class="section-label">Approach</span>
           <h2>Emulator</h2>
 
           <div
@@ -1056,7 +926,7 @@
                 style="font-size: 0.55em; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.1em;">
                 Parameters</div>
               <div
-                style="border: 1.5px solid var(--viridien-light); border-radius: 10px; padding: 0.8em 1.2em; background: var(--bg-card); display: flex; flex-direction: column; gap: 0.3em; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);">
+                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; padding: 0.8em 1.2em; background: var(--bg-card); display: flex; flex-direction: column; gap: 0.3em; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);">
                 <div
                   style="font-size: 0.65em; color: var(--text); line-height: 1.4; display: flex; align-items: baseline; gap: 0.4em;">
                   <span
@@ -1095,7 +965,7 @@
 
             <!-- Arrow -->
             <div
-              style="font-size: 2.2em; color: var(--viridien-light); flex-shrink: 0; line-height: 1; font-weight: 700;">
+              style="font-size: 2.2em; color: var(--idpasc-brand); flex-shrink: 0; line-height: 1; font-weight: 700;">
               →</div>
 
             <!-- Statistics / Plot -->
@@ -1104,9 +974,9 @@
                 style="font-size: 0.55em; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.1em;">
                 4 PCA components</div>
               <div
-                style="border: 1.5px solid var(--viridien-light); border-radius: 10px; overflow: hidden; background: var(--bg-card); width: 100%; display: flex; align-items: center; justify-content: center; padding: 0.1em; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);">
+                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; overflow: hidden; background: var(--bg-card); width: 100%; display: flex; align-items: center; justify-content: center; padding: 0.1em; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);">
                 <img src="pca.png" alt="Lensing PDF"
-                  style="max-height: 200px; max-width: 100%; max-height: 280px; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
+                  style="max-height: 280px; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
               </div>
               <!-- Metric card below plot -->
               <div class="metric-card"
@@ -1117,10 +987,51 @@
             </div>
           </div>
         </section>
-
-        <!-- Vertical: Why XGBoost + PCA -->
+        <!-- Slide 22: Comparison Table -->
         <section>
-          <span class="section-label">Rationale</span>
+          <span class="section-label">Reasoning</span>
+          <h2>Traditional Methods vs Emulator-Based Method</h2>
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Traditional Methods</th>
+                <th>Emulator-Based Method</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Use Case</td>
+                <td class="neutral">Detailed modeling</td>
+                <td class="good">Fast parameter estimation</td>
+              </tr>
+              <tr>
+                <td>Computational Cost</td>
+                <td class="bad">High</td>
+                <td class="good">Low</td>
+              </tr>
+              <tr>
+                <td>Speed</td>
+                <td class="bad">Slow</td>
+                <td class="good">Fast</td>
+              </tr>
+              <tr>
+                <td>Flexibility</td>
+                <td class="neutral">Depends on simulation or model</td>
+                <td class="good">High</td>
+              </tr>
+              <tr>
+                <td>Accuracy</td>
+                <td class="good">High</td>
+                <td class="good">High</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Slide 20: Why XGBoost + PCA -->
+        <section>
+          <span class="section-label">Reasoning</span>
           <h2>Why XGBoost + PCA?</h2>
 
           <div class="two-col" style="align-items: center;">
@@ -1140,17 +1051,22 @@
               </ul>
             </div>
             <div style="display:flex; justify-content:center;">
-              <img src="pca_explained_variance.png"
-                style="max-width:100%; max-height:400px; border-radius:10px; border:1.5px solid rgba(155, 93, 192, 0.35); object-fit:contain;" />
+              <img src="kl_histograms_wo_grid.png"
+                style="max-width:100%; max-height:400px; border-radius:10px; border:1.5px solid rgba(56, 189, 248, 0.35); object-fit:contain;" />
             </div>
           </div>
         </section>
       </section>
 
-      <!-- SLIDE: Solution -->
+
+      <!-- ============================================================ -->
+      <!-- PART 4: SOLUTION IMPLEMENTED & PERFORMANCE                  -->
+      <!-- ============================================================ -->
+
       <section>
+        <!-- Slide 21: ACE-Lensing Pipeline -->
         <section>
-          <span class="section-label">Solution Implemented</span>
+          <span class="section-label">Parameter Inference</span>
           <h2>ACE-Lensing</h2>
 
           <div class="two-col" style="align-items: center; gap: 1.5em;">
@@ -1161,14 +1077,15 @@
               </div>
 
               <div
-                style="display:flex; flex-direction:column; gap:0.4em; margin-top:0.8em; background:rgba(26,22,36,0.3); border-radius:10px; padding:0.6em; border:1px solid rgba(155,93,192,0.15);">
+                style="display:flex; flex-direction:column; gap:0.4em; margin-top:0.8em; background:rgba(15,23,42,0.3); border-radius:10px; padding:0.6em; border:1px solid rgba(56,189,248,0.15);">
                 <div style="display:flex; align-items:center;">
                   <div class="pipe-step" style="flex:1; padding:0.4em 0.8em !important; margin:0; font-size:0.38em;">
-                    <strong style="color:var(--accent);">Input:</strong> Cosmological parameters (Ωm, σ8, w, h)
+                    <strong style="color:var(--accent);">Input:</strong> Cosmological parameters (Ω<sub>m</sub>,
+                    σ<sub>8</sub>, w, h)
                   </div>
                 </div>
                 <div
-                  style="text-align:center; color:var(--viridien-light); font-size:0.5em; line-height:1; margin: 0.1em 0;">
+                  style="text-align:center; color:var(--idpasc-brand); font-size:0.5em; line-height:1; margin: 0.1em 0;">
                   ↓</div>
                 <div style="display:flex; align-items:center;">
                   <div class="pipe-step" style="flex:1; padding:0.4em 0.8em !important; margin:0; font-size:0.38em;">
@@ -1176,7 +1093,7 @@
                   </div>
                 </div>
                 <div
-                  style="text-align:center; color:var(--viridien-light); font-size:0.5em; line-height:1; margin: 0.1em 0;">
+                  style="text-align:center; color:var(--idpasc-brand); font-size:0.5em; line-height:1; margin: 0.1em 0;">
                   ↓</div>
                 <div style="display:flex; align-items:center;">
                   <div class="pipe-step" style="flex:1; padding:0.4em 0.8em !important; margin:0; font-size:0.38em;">
@@ -1187,55 +1104,77 @@
             </div>
             <div style="display:flex; justify-content:center;">
               <img src="predicted_pdf_vs_truth.png"
-                style="max-width:100%; max-height:400px; border-radius:10px; border:1.5px solid rgba(155, 93, 192, 0.35); object-fit:contain;" />
+                style="max-width:100%; max-height:400px; border-radius:10px; border:1.5px solid rgba(56, 189, 248, 0.35); object-fit:contain;" />
             </div>
           </div>
         </section>
 
-        <!-- Slide 6.2: Traditional vs Emulator Comparison Table -->
+
+        <!-- Slide: MCMC Likelihood Models -->
         <section>
-          <span class="section-label">Methodology</span>
-          <h2>Traditional Methods vs Emulator-Based Method</h2>
-          <table class="comparison-table">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Traditional Methods</th>
-                <th>Emulator-Based Method</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Use Case</td>
-                <td class="neutral">Detail modeling</td>
-                <td class="good">Fast parameter estimation</td>
-              </tr>
-              <tr>
-                <td>Computational Cost</td>
-                <td class="bad">High</td>
-                <td class="good">Low</td>
-              </tr>
-              <tr>
-                <td>Speed</td>
-                <td class="bad">Slow</td>
-                <td class="good">Fast</td>
-              </tr>
-              <tr>
-                <td>Flexibility</td>
-                <td class="neutral">Depends on the simulation or model</td>
-                <td class="good">High</td>
-              </tr>
-              <tr>
-                <td>Accuracy</td>
-                <td class="good">High</td>
-                <td class="neutral">Good approximation</td>
-              </tr>
-            </tbody>
-          </table>
+          <span class="section-label">PARAMETER INFERENCE</span>
+          <h2>MCMC Likelihood Models</h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5em; width: 100%; margin-top: 0.3em;">
+
+            <!-- Gaussian Fixed -->
+            <div class="compare-box" data-mode="fixed"
+              style="padding: 0.4em 0.6em !important; display: flex; flex-direction: column; justify-content: center; min-height: auto;">
+              <h4 style="margin: 0 0 0.3em 0; font-size: 0.5em; color: var(--accent); text-align: center;">1. Gaussian
+                (Fixed)</h4>
+              <div style="font-size: 0.36em; text-align: center; color: var(--text);">
+                $$\mathcal{L}_i = \mathcal{N}(\Delta\mu_i;\; 0,\, \sigma_i^2)$$
+                <div style="margin-top: 0.3em; color: var(--muted); font-size: 0.85em;">
+                  $$\sigma_i^2 = \sigma_{\rm int}^2 + \sigma_{\rm meas, i}^2 + \sigma_{\rm lens, fid}^2(z_i)$$
+                </div>
+              </div>
+            </div>
+
+            <!-- Gaussian ACE -->
+            <div class="compare-box" data-mode="ace"
+              style="padding: 0.4em 0.6em !important; display: flex; flex-direction: column; justify-content: center; min-height: auto;">
+              <h4 style="margin: 0 0 0.3em 0; font-size: 0.5em; color: var(--accent); text-align: center;">2. Gaussian
+                (ACE)</h4>
+              <div style="font-size: 0.36em; text-align: center; color: var(--text);">
+                $$\mathcal{L}_i = \mathcal{N}(\Delta\mu_i;\; 0,\, \sigma_i^2(\theta))$$
+                <div style="margin-top: 0.3em; color: var(--muted); font-size: 0.85em;">
+                  $$\sigma_i^2(\theta) = \sigma_{\rm int}^2 + \sigma_{\rm meas, i}^2 + \sigma_{\rm lens}^2(z_i,
+                  \theta)$$
+                </div>
+              </div>
+            </div>
+
+            <!-- Edgeworth -->
+            <div class="compare-box" data-mode="edgeworth"
+              style="padding: 0.4em 0.6em !important; display: flex; flex-direction: column; justify-content: center; min-height: auto;">
+              <h4 style="margin: 0 0 0.3em 0; font-size: 0.5em; color: var(--accent); text-align: center;">3. Edgeworth
+                Expansion</h4>
+              <div style="font-size: 0.36em; text-align: center; color: var(--text);">
+                $$p(\Delta\mu_i) \approx \mathcal{N}(\Delta\mu_i;\; 0,\, \sigma_i^2) \left[1 +
+                \frac{\kappa_3}{6\sigma_i^3}H_3\left(\frac{\Delta\mu_i}{\sigma_i}\right) +
+                \frac{\kappa_4}{24\sigma_i^4}H_4\left(\frac{\Delta\mu_i}{\sigma_i}\right)\right]$$
+                <div style="margin-top: 0.3em; color: var(--muted); font-size: 0.85em;">
+                  $$\sigma_i^2 = \sigma_{\rm int}^2 + \sigma_{\rm meas, i}^2 + \sigma_{\rm lens, fid}^2(z_i)$$
+                </div>
+              </div>
+            </div>
+
+            <!-- Full Convolution -->
+            <div class="compare-box" data-mode="full"
+              style="padding: 0.4em 0.6em !important; display: flex; flex-direction: column; justify-content: center; min-height: auto;">
+              <h4 style="margin: 0 0 0.3em 0; font-size: 0.5em; color: var(--accent); text-align: center;">4. Full
+                Convolution</h4>
+              <div style="font-size: 0.36em; text-align: center; color: var(--text);">
+                $$\mathcal{L}_i = \int \mathcal{N}(\Delta\mu_i - \delta\mu;\; 0,\, \sigma_{\rm int}^2 + \sigma_{\rm
+                meas,i}^2) \, p_{\rm ACE}(\delta\mu \,|\, z_i, \theta) \, \mathrm{d}(\delta\mu)$$
+              </div>
+            </div>
+
+          </div>
         </section>
-        <!-- Vertical: HPC optimization -->
+
+        <!-- Slide 23: HPC Optimization -->
         <section>
-          <span class="section-label">HPC Optimization</span>
+          <span class="section-label">PARAMETER INFERENCE</span>
           <h2>Performance</h2>
 
           <div class="body-text">
@@ -1260,36 +1199,49 @@
           </div>
 
           <div class="body-text" style="margin-top:0.5em">
-            Solution: rewrote critical loops in <strong>Numba</strong> (Python JIT compiler),
+            Solution: Rewrote critical loops in <strong>Numba</strong> (Python JIT compiler),
             exploiting cache-friendly memory layout and parallel CPU execution.
           </div>
         </section>
       </section>
 
-      <!-- SLIDE: Future  -->
+
+      <!-- ============================================================ -->
+      <!-- PART 5: FUTURE WORK & CLOSE                                  -->
+      <!-- ============================================================ -->
+
+      <!-- Slide 24: Future -->
       <section>
-        <span class="section-label">Future</span>
-        <h2>Next thing to attack?</h2>
-        <p class="subtitle">Decision Tree Discretization</p>
-        <div style="display:flex; justify-content:center; width:100%;">
-          <img src="discretization.png"
-            style="max-height:400px; max-width:90%; border-radius:10px; border:1.5px solid rgba(155, 93, 192, 0.35); object-fit:contain;" />
-        </div>
+        <section class="title-slide">
+          <div class="divider" style="margin: 2.5em auto 1em auto;"></div>
+          <h1>Thank you</h1>
+          <p class="subtitle">Questions?</p>
+          <div class="divider"></div>
+          <p class="meta">
+            Tunç Türker<br />
+            tuncturker.work@gmail.com
+          </p>
+        </section>
+        <section>
+          <span class="section-label">Conclusion</span>
+          <h2>Results</h2>
+          <div style="display:flex; justify-content:center; width:100%;">
+            <img src="run16_result.png"
+              style="max-height:500px; max-width:100%; border-radius:10px; border:1.5px solid rgba(56, 189, 248, 0.35); object-fit:contain;" />
+          </div>
+        </section>
+        <section>
+          <span class="section-label">Now</span>
+          <h2>Problem to solve</h2>
+          <p class="subtitle">Decision Tree Discretization</p>
+          <div style="display:flex; justify-content:center; width:100%;">
+            <img src="discretization.png"
+              style="max-height:400px; max-width:90%; border-radius:10px; border:1.5px solid rgba(56, 189, 248, 0.35); object-fit:contain;" />
+          </div>
+        </section>
       </section>
 
 
-
-      <!-- FINAL SLIDE -->
-      <section class="title-slide">
-        <div class="divider"></div>
-        <h1>Thank you</h1>
-        <p class="subtitle">Questions?</p>
-        <div class="divider"></div>
-        <p class="meta">
-          Tunç Türker<br />
-          tuncturker.work@gmail.com
-        </p>
-      </section>
 
     </div>
   </div>
@@ -1298,12 +1250,28 @@
 
   <!-- Lightbox overlay -->
   <div id="lightbox"
-    style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; align-items:center; justify-content:center; cursor:zoom-out;">
+    style="display:none; position:fixed; inset:0; background:rgba(2,6,23,0.85); z-index:9999; align-items:center; justify-content:center; cursor:zoom-out;">
     <img id="lightbox-img"
-      style="max-width:90vw; max-height:90vh; border-radius:8px; object-fit:contain; box-shadow:0 0 60px rgba(192,132,252,0.3);" />
+      style="max-width:90vw; max-height:90vh; border-radius:8px; object-fit:contain; box-shadow:0 0 60px rgba(56,189,248,0.3);" />
+  </div>
+
+  <!-- Mode detail modal overlay -->
+  <div id="mode-modal"
+    style="display:none; position:fixed; inset:0; background:rgba(2,6,23,0.92); z-index:99999; align-items:center; justify-content:center; cursor:pointer; backdrop-filter:blur(15px); -webkit-backdrop-filter:blur(15px);">
+    <div id="mode-modal-content" class="compare-box"
+      style="max-width:700px; width:90%; padding:2.5em !important; cursor:default; border:2px solid var(--accent) !important; background:rgba(15,23,42,0.9) !important; box-shadow:0 0 50px rgba(0,240,255,0.25) !important;">
+      <h3 id="mode-modal-title"
+        style="font-size:38px !important; color:var(--accent); margin-bottom:0.8em; text-align:center; text-transform:none !important; letter-spacing:normal !important;">
+      </h3>
+      <div id="mode-modal-body" style="font-size:24px !important; color:var(--text); line-height:1.7;"></div>
+      <div
+        style="text-align:center; margin-top:2.2em; font-size:16px !important; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em;">
+        Click anywhere outside to close</div>
+    </div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/math/math.min.js"></script>
   <script>
     // Lightbox
     const lightbox = document.getElementById('lightbox');
@@ -1321,13 +1289,110 @@
     });
 
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') lightbox.style.display = 'none';
+      if (e.key === 'Escape') {
+        lightbox.style.display = 'none';
+        document.getElementById('mode-modal').style.display = 'none';
+      }
+    });
+
+    // MCMC Likelihood Modes details mapping
+    const modeDetails = {
+      fixed: {
+        title: "1. Gaussian (Fixed) Likelihood",
+        body: `
+          <ul style="margin: 0; padding-left: 1.2em;">
+            <li style="margin-bottom: 0.8em;"><strong>Standard Baseline Approach</strong>: Used in traditional supernova analysis pipelines (such as Pantheon+).</li>
+            <li style="margin-bottom: 0.8em;"><strong>Constant Variance</strong>: Models weak lensing scatter using a Gaussian where the lensing dispersion \\(\\sigma_{\\rm lens}\\) is frozen at the fiducial cosmology:
+              $$ \\sigma_i^2 = \\sigma_{\\rm int}^2 + \\sigma_{\\rm meas, i}^2 + \\sigma_{\\rm lens, fid}^2(z_i) $$
+            </li>
+            <li style="margin-bottom: 0.8em;"><strong>Non-Linear Mean Subtraction</strong>: Explicitly subtracts the non-zero mean lensing shift in magnitude space (calculated at the fiducial cosmology) to prevent bias:
+              $$ \\mathcal{L}_i = \\mathcal{N}(\\hat{\\mu}_i - \\mu_{\\rm th}(z_i, \\theta) - \\langle\\delta\\mu_i\\rangle_{\\rm fid};\\, 0,\\, \\sigma_i^2) $$
+            </li>
+            <li><strong>Limitations</strong>: Computationally very cheap, but completely ignores the physical non-Gaussian skewness and heavy tail of the true weak lensing magnification PDF.</li>
+          </ul>
+        `
+      },
+      ace: {
+        title: "2. Gaussian (ACE) Likelihood",
+        body: `
+          <ul style="margin: 0; padding-left: 1.2em;">
+            <li style="margin-bottom: 0.8em;"><strong>Cosmology-Dependent Variance</strong>: Still approximates the likelihood as Gaussian, but updates the variance dynamically at each step using the emulator:
+              $$ \\sigma_i^2(\\theta) = \\sigma_{\\rm int}^2 + \\sigma_{\\rm meas, i}^2 + \\sigma_{\\rm lens}^2(z_i, \\theta) $$
+            </li>
+            <li style="margin-bottom: 0.8em;"><strong>Non-Linear Mean Subtraction</strong>: Dynamically subtracts the cosmology-dependent mean lensing magnitude shift \\(\\langle\\delta\\mu_i\\rangle\\) at each step:
+              $$ \\mathcal{L}_i = \\mathcal{N}(\\hat{\\mu}_i - \\mu_{\\rm th}(z_i, \\theta) - \\langle\\delta\\mu_i\\rangle;\\, 0,\\, \\sigma_i^2(\\theta)) $$
+            </li>
+            </ul>
+        `
+      },
+      edgeworth: {
+        title: "3. Edgeworth Expansion Likelihood",
+        body: `
+          <ul style="margin: 0; padding-left: 1.2em;">
+            <li style="margin-bottom: 0.8em;"><strong>Analytical Corrections</strong>: Captures leading-order non-Gaussian corrections using Hermite polynomials \\(H_3\\) and \\(H_4\\) modulated by skewness (\\(\\kappa_3\\)) and excess kurtosis (\\(\\kappa_4\\)), centered by subtracting the mean lensing shift \\(\\langle\\delta\\mu_i\\rangle\\):
+              $$ p(\\Delta\\mu - \\langle\\delta\\mu_i\\rangle) \\approx \\mathcal{N}(\\Delta\\mu - \\langle\\delta\\mu_i\\rangle;\\, 0,\\, \\sigma_i^2) $$
+              $$ \\times \\left[1 + \\frac{\\kappa_3}{6\\sigma_i^3}H_3\\left(\\frac{\\Delta\\mu - \\langle\\delta\\mu_i\\rangle}{\\sigma_i}\\right) + \\frac{\\kappa_4}{24\\sigma_i^4}H_4\\left(\\frac{\\Delta\\mu - \\langle\\delta\\mu_i\\rangle}{\\sigma_i}\\right)\\right] $$
+            </li>
+            <li style="margin-bottom: 0.8em;"><strong>Cumulants from ACE</strong>: The intrinsic scatter is purely Gaussian, contributing only to the variance, while \\(\\kappa_3\\) and \\(\\kappa_4\\) are predictions from the ACE emulator.</li>
+            <li><strong>Goal</strong>: Incorporates the dominant non-Gaussian features without running full convolutions.</li>
+          </ul>
+        `
+      },
+      full: {
+        title: "4. Full Convolution Likelihood",
+        body: `
+          <ul style="margin: 0; padding-left: 1.2em;">
+            <li style="margin-bottom: 0.8em;"><strong>Complete non-Gaussian Treatment</strong>: Performs a full mathematical convolution of the Gaussian intrinsic scatter with the complete, emulated lensing magnification PDF \\(p_{\\rm ACE}\\):
+              $$ \\mathcal{L}_i = \\int \\mathcal{N}(\\hat{\\mu}_i - \\mu_{\\rm th} - \\delta\\mu;\\, 0,\\, \\sigma_{\\rm int}^2 + \\sigma_{\\rm meas,i}^2) \\, p_{\\rm ACE}(\\delta\\mu \\,|\\, z_i, \\theta) \\, \\mathrm{d}(\\delta\\mu) $$
+            </li>
+            <li style="margin-bottom: 0.8em;"><strong>High-Performance Execution</strong>: Fused parallel Numba kernels loop over supernovae in parallel, bypassing memory bottlenecks.</li>
+            <li style="margin-bottom: 0.8em;"><strong>Cosmological Constraints</strong>: Recovers fully unbiased, accurate posterior contours by correctly accounting for the physical lensing tail.</li>
+            <li><strong>Key Limitation</strong>: Assumes independent observations (diagonal covariance matrix)</li>
+          </ul>
+        `
+      }
+    };
+
+    // Mode modal interaction
+    const modeModal = document.getElementById('mode-modal');
+    const modeModalTitle = document.getElementById('mode-modal-title');
+    const modeModalBody = document.getElementById('mode-modal-body');
+
+    document.querySelectorAll('.compare-box[data-mode]').forEach(card => {
+      card.style.cursor = 'zoom-in';
+      card.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const mode = this.getAttribute('data-mode');
+        const detail = modeDetails[mode];
+        if (detail) {
+          modeModalTitle.textContent = detail.title;
+          modeModalBody.innerHTML = detail.body;
+          modeModal.style.display = 'flex';
+
+          // Re-typeset the modal content using MathJax
+          if (window.MathJax) {
+            MathJax.typesetPromise([modeModalBody]);
+          }
+        }
+      });
+    });
+
+    modeModal.addEventListener('click', function () {
+      modeModal.style.display = 'none';
+    });
+
+    document.getElementById('mode-modal-content').addEventListener('click', function (e) {
+      e.stopPropagation(); // Prevent closing when clicking content box
     });
 
     // Make words clickable to toggle bold styling, preserving child tags (like .highlight)
     function makeWordsClickable(node) {
       if (node.nodeType === Node.TEXT_NODE) {
         const text = node.nodeValue;
+        // Do not split math expressions
+        if (text.includes('$$') || text.includes('\\(') || text.includes('\\[') || text.includes('\\mu') || text.includes('\\mathcal') || text.includes('\\sigma') || text.includes('\\kappa')) {
+          return;
+        }
         // Split by words, preserving whitespace
         const tokens = text.split(/(\s+)/);
         const fragment = document.createDocumentFragment();
@@ -1344,18 +1409,18 @@
         });
         node.parentNode.replaceChild(fragment, node);
       } else if (node.nodeType === Node.ELEMENT_NODE) {
+        // Exclude MathJax wrappers from word splitting
+        if (node.classList.contains('MathJax') || node.closest('.MathJax') || node.closest('#mode-modal')) {
+          return;
+        }
         // Convert to array because the childNodes list is live
         const children = Array.from(node.childNodes);
         children.forEach(makeWordsClickable);
       }
     }
 
-    // Apply word-splitter to subtitle elements in title-slides
-    document.querySelectorAll('.title-slide .subtitle').forEach(el => {
-      makeWordsClickable(el);
-    });
-
-
+    // Apply word-splitter to all text nodes within the slides container
+    makeWordsClickable(document.querySelector('.slides'));
 
     // Word clicking toggle-bold handler
     document.addEventListener('click', function (e) {
@@ -1374,6 +1439,7 @@
       width: 1100,
       height: 700,
       margin: 0.08,
+      plugins: [RevealMath.MathJax3]
     });
   </script>
 </body>
