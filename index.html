@@ -331,6 +331,7 @@
                     <button class="tab-btn" data-target="books">books.</button>
                     <button class="tab-btn" data-target="films">films.</button>
                     <button class="tab-btn" data-target="music">music.</button>
+                    <button class="tab-btn" data-target="places">places.</button>
                 </div>
 
                 <div class="showcase-content">
@@ -453,6 +454,68 @@
                             style="width:100%;max-width:660px;overflow:hidden;background:transparent;border-radius:10px;"
                             sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
                             src="https://embed.music.apple.com/tr/playlist/epic/pl.u-2j3yCVV2BXv"></iframe>
+                    </div>
+                </div>
+
+                <!-- Places Grid -->
+                <div class="grid-container" id="places" style="grid-template-columns: 1fr;">
+                    <p class="section-header" style="width: 100%; text-align: center; padding: var(--space-md) 0; line-height: 1.8;">
+                        sometimes i go places and write about them.
+                    </p>
+                    
+                    <!-- View 1: Cards -->
+                    <div id="places-cards" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-md); width: 100%;">
+                        <div class="grid-item hover-shine place-card" data-url="travel/vitoria" data-langs="pt,en" data-default-lang="pt" style="cursor: pointer;">
+                            <div class="item-visual" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/-2016-11-05_ao_13-_Vit%C3%B3ria_94_Romerito_Pontes_%2830875449812%29_%28cropped%29.jpg/1280px--2016-11-05_ao_13-_Vit%C3%B3ria_94_Romerito_Pontes_%2830875449812%29_%28cropped%29.jpg'); background-size: cover; background-position: center; border-radius: 8px; aspect-ratio: 4/3;"></div>
+                            <div class="item-meta">
+                                <h3>Vitória, ES.</h3>
+                                <p>Brasil. 🇧🇷</p>
+                            </div>
+                        </div>
+                        <div class="grid-item hover-shine place-card" data-url="travel/rio" data-langs="tr,en" data-default-lang="tr" style="cursor: pointer;">
+                            <div class="item-visual" style="background-image: url('https://images.unsplash.com/photo-1483729558449-99ef09a8c325?q=80&w=600&auto=format&fit=crop'); background-size: cover; background-position: center; border-radius: 8px; aspect-ratio: 4/3;"></div>
+                            <div class="item-meta">
+                                <h3>Rio, RJ.</h3>
+                                <p>Brasil. 🇧🇷</p>
+                            </div>
+                        </div>
+                        <div class="grid-item hover-shine place-card" data-url="travel/trieste" data-langs="en" data-default-lang="en" style="cursor: pointer;">
+                            <div class="item-visual" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Frontemare_di_Trieste_%28cropped%29.jpg/960px-Frontemare_di_Trieste_%28cropped%29.jpg'); background-size: cover; background-position: center; border-radius: 8px; aspect-ratio: 4/3;"></div>
+                            <div class="item-meta">
+                                <h3>Trieste, TS.</h3>
+                                <p>Italia. 🇮🇹</p>
+                            </div>
+                        </div>
+                        <div class="grid-item hover-shine place-card" data-url="#" data-langs="fr" data-default-lang="fr" style="cursor: pointer;">
+                            <div class="item-visual" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1280px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg'); background-size: cover; background-position: center; border-radius: 8px; aspect-ratio: 4/3;"></div>
+                            <div class="item-meta">
+                                <h3>Paris, IDF.</h3>
+                                <p>France. 🇫🇷</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- View 2: Iframe Viewer -->
+                    <div id="places-viewer" style="display: none; width: 100%; animation: fadeIn 0.4s ease;">
+                        <div class="viewer-controls" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-md); padding: var(--space-sm) var(--space-md); background: var(--color-bg-alt); border: 1px solid var(--glass-border); border-radius: 30px; backdrop-filter: blur(8px);">
+                            <button id="viewer-back-btn" style="background: transparent; border: none; color: var(--color-text-main); font-family: var(--font-primary); font-size: 1rem; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                                back to places.
+                            </button>
+                            <div style="display: flex; align-items: center; gap: 16px;">
+                                <button id="viewer-popout-btn" style="background: transparent; border: none; color: var(--color-text-main); font-family: var(--font-primary); font-size: 1rem; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: opacity 0.2s;" title="Open in new window">
+                                    read in full mode.
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                                </button>
+                                <div class="language-toggle" style="display: flex; gap: 8px;">
+                                    <button class="lang-btn active" data-lang="pt" style="background: var(--color-accent); color: var(--color-bg); border: none; padding: 4px 12px; border-radius: 20px; font-family: var(--font-primary); font-size: 0.85rem; cursor: pointer; transition: all 0.2s;">PT</button>
+                                    <button class="lang-btn" data-lang="en" style="background: transparent; color: var(--color-text-muted); border: 1px solid var(--color-accent-dim); padding: 4px 12px; border-radius: 20px; font-family: var(--font-primary); font-size: 0.85rem; cursor: pointer; transition: all 0.2s;">EN</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="viewer-frame-container" style="width: 100%; height: 95vh; min-height: 800px; background: #faf9f6; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.15); border: 1px solid var(--color-accent-dim);">
+                            <iframe id="place-iframe" src="" style="width: 100%; height: 100%; border: none; background: #faf9f6;"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>

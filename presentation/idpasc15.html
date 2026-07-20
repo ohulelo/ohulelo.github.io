@@ -408,6 +408,22 @@
       color: var(--highlight) !important;
     }
 
+    /* Clickable name swap style */
+    .toonch-swap {
+      cursor: pointer;
+      transition: font-weight 0.2s, color 0.2s;
+      display: inline-block;
+    }
+
+    .toonch-swap:hover {
+      color: var(--accent);
+    }
+
+    .toonch-swap.toonched {
+      font-weight: 800 !important;
+      color: var(--highlight) !important;
+    }
+
     /* Comparison Table Styling */
     .reveal table.comparison-table {
       width: 100%;
@@ -486,7 +502,8 @@
             distribution function of gravitational lensing of point sources.</p>
           <div class="divider" style="margin-bottom: 0.2em;"></div>
           <p class="meta">
-            Özgen <strong>Tunç</strong> Türker · PhD Candidate · UFES, Brazil<br />
+            <span class="toonch-swap" onclick="toggleToonch(this)">Tunç</span> Türker · PhD Candidate · UFES,
+            Brazil<br />
             Supervisor: Valerio Marra<br />
             20 July 2026
           </p>
@@ -513,7 +530,8 @@
             distribution function of gravitational lensing of point sources.</p>
           <div class="divider"></div>
           <p class="meta">
-            Özgen <strong>Tunç</strong> Türker · PhD Candidate · UFES, Brazil<br />
+            <span class="toonch-swap" onclick="toggleToonch(this)">Tunç</span> Türker · PhD Candidate · UFES,
+            Brazil<br />
             Supervisor: Valerio Marra<br />
             20 July 2026
           </p>
@@ -540,7 +558,8 @@
             distribution function of <span class="highlight">gravitational lensing</span> of point sources.</p>
           <div class="divider"></div>
           <p class="meta">
-            Özgen <strong>Tunç</strong> Türker · PhD Candidate · UFES, Brazil<br />
+            <span class="toonch-swap" onclick="toggleToonch(this)">Tunç</span> Türker · PhD Candidate · UFES,
+            Brazil<br />
             Supervisor: Valerio Marra<br />
             20 July 2026
           </p>
@@ -559,7 +578,7 @@
         </section>
 
 
-        <!-- Slide 5: Gravitational Lensing Visual 2 -->
+        <!-- Slide 5: Gravitational Lensing Visual 2 
         <section class="title-slide">
           <p class="idpasc-tag">Gravitational Lensing</p>
           <div class="divider" style="margin: 0.5em auto;"></div>
@@ -569,7 +588,7 @@
           </div>
         </section>
 
-        <!-- Slide 6: Gravitational Lensing Visual 3 -->
+         Slide 6: Gravitational Lensing Visual 3 
         <section class="title-slide">
           <p class="idpasc-tag">Gravitational Lensing</p>
           <div class="divider" style="margin: 0.5em auto;"></div>
@@ -577,7 +596,7 @@
             <img src="gravitational_lensing.png"
               style="max-height:370px; max-width:90%; border-radius:10px; border:1.5px solid rgba(56, 189, 248, 0.35); cursor:zoom-in; object-fit:contain;" />
           </div>
-        </section>
+        </section>-->
 
 
         <!-- Slide 7: Highlight "point sources" -->
@@ -589,7 +608,8 @@
             distribution function of gravitational lensing of <span class="highlight">point sources.</span> </p>
           <div class="divider"></div>
           <p class="meta">
-            Özgen <strong>Tunç</strong> Türker · PhD Candidate · UFES, Brazil<br />
+            <span class="toonch-swap" onclick="toggleToonch(this)">Tunç</span> Türker · PhD Candidate · UFES,
+            Brazil<br />
             Supervisor: Valerio Marra<br />
             20 July 2026
           </p>
@@ -662,7 +682,7 @@
           </div>
         </section>
 
-        <!-- Slide 12: Simulations 2 -->
+        <!-- Slide 12: Simulations 2
         <section>
           <span class="section-label">Methodology</span>
           <h2>Simulations</h2>
@@ -672,7 +692,7 @@
           </div>
         </section>
 
-        <!-- Slide 13: Simulations 3 -->
+         Slide 13: Simulations 3
         <section>
           <span class="section-label">Methodology</span>
           <h2>Simulations</h2>
@@ -680,7 +700,7 @@
             <img src="simulation1.png"
               style="max-height:400px; max-width:100%; border-radius:10px; border:1.5px solid rgba(56, 189, 248, 0.35); object-fit:contain;" />
           </div>
-        </section>
+        </section> -->
 
         <!-- Slide 14: Simulations 4 -->
         <section>
@@ -1222,7 +1242,7 @@
           <p class="subtitle">Questions?</p>
           <div class="divider"></div>
           <p class="meta">
-            Tunç Türker<br />
+            <span class="toonch-swap" onclick="toggleToonch(this)">Tunç</span> Türker<br />
             tuncturker.work@gmail.com
           </p>
         </section>
@@ -1413,8 +1433,8 @@
         });
         node.parentNode.replaceChild(fragment, node);
       } else if (node.nodeType === Node.ELEMENT_NODE) {
-        // Exclude MathJax wrappers from word splitting
-        if (node.classList.contains('MathJax') || node.closest('.MathJax') || node.closest('#mode-modal')) {
+        // Exclude MathJax wrappers and toonch-swap from word splitting
+        if (node.classList.contains('MathJax') || node.closest('.MathJax') || node.closest('#mode-modal') || node.classList.contains('toonch-swap') || node.closest('.toonch-swap')) {
           return;
         }
         // Convert to array because the childNodes list is live
@@ -1432,6 +1452,21 @@
         e.target.classList.toggle('bold-word');
       }
     });
+
+    // Swap "Tunç" to "toonch" and toggle styles simultaneously on all instances
+    function toggleToonch(el) {
+      const allSwaps = document.querySelectorAll('.toonch-swap');
+      const isCurrentlyTunc = el.textContent === "Tunç";
+      allSwaps.forEach(swap => {
+        if (isCurrentlyTunc) {
+          swap.textContent = "Toonch";
+          swap.classList.add("toonched");
+        } else {
+          swap.textContent = "Tunç";
+          swap.classList.remove("toonched");
+        }
+      });
+    }
 
     Reveal.initialize({
       controls: true,

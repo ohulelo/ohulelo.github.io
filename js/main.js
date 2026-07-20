@@ -324,4 +324,99 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Places Tab Logic (Cards and Iframe Viewer)
+    const placeCards = document.querySelectorAll('.place-card');
+    const placesCardsContainer = document.getElementById('places-cards');
+    const placesViewer = document.getElementById('places-viewer');
+    const placeIframe = document.getElementById('place-iframe');
+    const viewerBackBtn = document.getElementById('viewer-back-btn');
+    const viewerPopoutBtn = document.getElementById('viewer-popout-btn');
+    const languageToggleContainer = document.querySelector('.language-toggle');
+    let currentPlaceBaseUrl = '';
+
+    if (placeCards.length > 0) {
+        placeCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const url = card.getAttribute('data-url');
+                const langsStr = card.getAttribute('data-langs');
+                const defaultLang = card.getAttribute('data-default-lang');
+                
+                if (url && url !== '#') {
+                    currentPlaceBaseUrl = url;
+                    
+                    // Clear existing language buttons
+                    languageToggleContainer.innerHTML = '';
+                    
+                    if (langsStr) {
+                        const langs = langsStr.split(',');
+                        langs.forEach(lang => {
+                            const btn = document.createElement('button');
+                            btn.className = 'lang-btn';
+                            btn.setAttribute('data-lang', lang);
+                            btn.textContent = lang.toUpperCase();
+                            
+                            // Style the button
+                            btn.style.padding = '4px 12px';
+                            btn.style.borderRadius = '20px';
+                            btn.style.fontFamily = 'var(--font-primary)';
+                            btn.style.fontSize = '0.85rem';
+                            btn.style.cursor = 'pointer';
+                            btn.style.transition = 'all 0.2s';
+                            
+                            if (lang === defaultLang) {
+                                btn.classList.add('active');
+                                btn.style.background = 'var(--color-accent)';
+                                btn.style.color = 'var(--color-bg)';
+                                btn.style.border = 'none';
+                            } else {
+                                btn.style.background = 'transparent';
+                                btn.style.color = 'var(--color-text-muted)';
+                                btn.style.border = '1px solid var(--color-accent-dim)';
+                            }
+                            
+                            // Add click listener
+                            btn.addEventListener('click', () => {
+                                document.querySelectorAll('.lang-btn').forEach(b => {
+                                    b.classList.remove('active');
+                                    b.style.background = 'transparent';
+                                    b.style.color = 'var(--color-text-muted)';
+                                    b.style.border = '1px solid var(--color-accent-dim)';
+                                });
+                                
+                                btn.classList.add('active');
+                                btn.style.background = 'var(--color-accent)';
+                                btn.style.color = 'var(--color-bg)';
+                                btn.style.border = 'none';
+                                
+                                placeIframe.src = currentPlaceBaseUrl + '_' + lang + '.html';
+                            });
+                            
+                            languageToggleContainer.appendChild(btn);
+                        });
+                    }
+
+                    placeIframe.src = currentPlaceBaseUrl + '_' + (defaultLang || 'pt') + '.html';
+                    placesCardsContainer.style.display = 'none';
+                    placesViewer.style.display = 'block';
+                }
+            });
+        });
+
+        if (viewerBackBtn) {
+            viewerBackBtn.addEventListener('click', () => {
+                placesViewer.style.display = 'none';
+                placeIframe.src = '';
+                placesCardsContainer.style.display = 'grid';
+            });
+        }
+
+        if (viewerPopoutBtn) {
+            viewerPopoutBtn.addEventListener('click', () => {
+                if (placeIframe.src) {
+                    window.open(placeIframe.src, '_blank');
+                }
+            });
+        }
+    }
 });
