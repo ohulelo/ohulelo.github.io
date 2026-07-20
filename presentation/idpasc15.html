@@ -861,7 +861,80 @@
             </div>
           </div>
         </section>
+        <!-- Slide 19: Emulator showing PCA Components -->
+        <section>
+          <span class="section-label">Approach</span>
+          <h2>Emulator</h2>
 
+          <div
+            style="display: flex; align-items: center; justify-content: space-between; gap: 1.5em; width: 100%; margin-top: 0.4em;">
+            <!-- Parameters -->
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3em; flex: 0 0 auto;">
+              <div
+                style="font-size: 0.55em; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.1em;">
+                Parameters</div>
+              <div
+                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; padding: 0.8em 1.2em; background: var(--bg-card); display: flex; flex-direction: column; gap: 0.3em; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);">
+                <div
+                  style="font-size: 0.65em; color: var(--text); line-height: 1.4; display: flex; align-items: baseline; gap: 0.4em;">
+                  <span
+                    style="color: var(--accent); font-weight: 600; min-width: 2em; font-style: italic;">Ω<sub>m</sub></span>
+                  <span style="color: var(--muted);">→ (0.2 – 0.4)</span>
+                </div>
+                <div
+                  style="font-size: 0.65em; color: var(--text); line-height: 1.4; display: flex; align-items: baseline; gap: 0.4em;">
+                  <span style="color: var(--accent); font-weight: 600; min-width: 2em; font-style: italic;">h</span>
+                  <span style="color: var(--muted);">→ (0.6 – 0.8)</span>
+                </div>
+                <div
+                  style="font-size: 0.65em; color: var(--text); line-height: 1.4; display: flex; align-items: baseline; gap: 0.4em;">
+                  <span style="color: var(--accent); font-weight: 600; min-width: 2em; font-style: italic;">w</span>
+                  <span style="color: var(--muted);">→ (−1.5 – −0.7)</span>
+                </div>
+                <div
+                  style="font-size: 0.65em; color: var(--text); line-height: 1.4; display: flex; align-items: baseline; gap: 0.4em;">
+                  <span
+                    style="color: var(--accent); font-weight: 600; min-width: 2em; font-style: italic;">σ<sub>8</sub></span>
+                  <span style="color: var(--muted);">→ (0.7 – 0.9)</span>
+                </div>
+                <div
+                  style="font-size: 0.65em; color: var(--text); line-height: 1.4; display: flex; align-items: baseline; gap: 0.4em;">
+                  <span style="color: var(--accent); font-weight: 600; min-width: 2em; font-style: italic;">z</span>
+                  <span style="color: var(--muted);">→ (0.3 – 6)</span>
+                </div>
+              </div>
+              <!-- Metric card below parameters -->
+              <div class="metric-card"
+                style="margin-top: 0.3em; width: 100%; text-align: center; padding: 0.4em 0.6em !important;">
+                <div class="number" style="font-size: 1.1em;">70</div>
+                <div class="label" style="font-size: 0.32em;">Different cosmologies</div>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div
+              style="font-size: 2.2em; color: var(--idpasc-brand); flex-shrink: 0; line-height: 1; font-weight: 700;">
+              →</div>
+
+            <!-- Statistics / Plot -->
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3em; flex: 1;">
+              <div
+                style="font-size: 0.55em; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.1em;">
+                4 PCA components</div>
+              <div
+                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; overflow: hidden; background: var(--bg-card); width: 100%; display: flex; align-items: center; justify-content: center; padding: 0.1em; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);">
+                <img src="pca.png" alt="Lensing PDF"
+                  style="max-height: 280px; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
+              </div>
+              <!-- Metric card below plot -->
+              <div class="metric-card"
+                style="margin-top: 0.3em; width: 100%; text-align: center; padding: 0.4em 0.6em !important;">
+                <div class="number" style="font-size: 1.1em;">1.5k</div>
+                <div class="label" style="font-size: 0.32em;">PDFs</div>
+              </div>
+            </div>
+          </div>
+        </section>
         <!-- Slide 18: Emulator with Parameters and PDFs -->
         <section>
           <span class="section-label">Approach</span>
@@ -937,80 +1010,6 @@
           </div>
         </section>
 
-        <!-- Slide 19: Emulator showing PCA Components -->
-        <section>
-          <span class="section-label">Approach</span>
-          <h2>Emulator</h2>
-
-          <div
-            style="display: flex; align-items: center; justify-content: space-between; gap: 1.5em; width: 100%; margin-top: 0.4em;">
-            <!-- Parameters -->
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3em; flex: 0 0 auto;">
-              <div
-                style="font-size: 0.55em; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.1em;">
-                Parameters</div>
-              <div
-                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; padding: 0.8em 1.2em; background: var(--bg-card); display: flex; flex-direction: column; gap: 0.3em; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);">
-                <div
-                  style="font-size: 0.65em; color: var(--text); line-height: 1.4; display: flex; align-items: baseline; gap: 0.4em;">
-                  <span
-                    style="color: var(--accent); font-weight: 600; min-width: 2em; font-style: italic;">Ω<sub>m</sub></span>
-                  <span style="color: var(--muted);">→ (0.2 – 0.4)</span>
-                </div>
-                <div
-                  style="font-size: 0.65em; color: var(--text); line-height: 1.4; display: flex; align-items: baseline; gap: 0.4em;">
-                  <span style="color: var(--accent); font-weight: 600; min-width: 2em; font-style: italic;">h</span>
-                  <span style="color: var(--muted);">→ (0.6 – 0.8)</span>
-                </div>
-                <div
-                  style="font-size: 0.65em; color: var(--text); line-height: 1.4; display: flex; align-items: baseline; gap: 0.4em;">
-                  <span style="color: var(--accent); font-weight: 600; min-width: 2em; font-style: italic;">w</span>
-                  <span style="color: var(--muted);">→ (−1.5 – −0.7)</span>
-                </div>
-                <div
-                  style="font-size: 0.65em; color: var(--text); line-height: 1.4; display: flex; align-items: baseline; gap: 0.4em;">
-                  <span
-                    style="color: var(--accent); font-weight: 600; min-width: 2em; font-style: italic;">σ<sub>8</sub></span>
-                  <span style="color: var(--muted);">→ (0.7 – 0.9)</span>
-                </div>
-                <div
-                  style="font-size: 0.65em; color: var(--text); line-height: 1.4; display: flex; align-items: baseline; gap: 0.4em;">
-                  <span style="color: var(--accent); font-weight: 600; min-width: 2em; font-style: italic;">z</span>
-                  <span style="color: var(--muted);">→ (0.3 – 6)</span>
-                </div>
-              </div>
-              <!-- Metric card below parameters -->
-              <div class="metric-card"
-                style="margin-top: 0.3em; width: 100%; text-align: center; padding: 0.4em 0.6em !important;">
-                <div class="number" style="font-size: 1.1em;">70</div>
-                <div class="label" style="font-size: 0.32em;">Different cosmologies</div>
-              </div>
-            </div>
-
-            <!-- Arrow -->
-            <div
-              style="font-size: 2.2em; color: var(--idpasc-brand); flex-shrink: 0; line-height: 1; font-weight: 700;">
-              →</div>
-
-            <!-- Statistics / Plot -->
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.3em; flex: 1;">
-              <div
-                style="font-size: 0.55em; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.1em;">
-                4 PCA components</div>
-              <div
-                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; overflow: hidden; background: var(--bg-card); width: 100%; display: flex; align-items: center; justify-content: center; padding: 0.1em; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);">
-                <img src="pca.png" alt="Lensing PDF"
-                  style="max-height: 280px; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
-              </div>
-              <!-- Metric card below plot -->
-              <div class="metric-card"
-                style="margin-top: 0.3em; width: 100%; text-align: center; padding: 0.4em 0.6em !important;">
-                <div class="number" style="font-size: 1.1em;">1.5k</div>
-                <div class="label" style="font-size: 0.32em;">PDFs</div>
-              </div>
-            </div>
-          </div>
-        </section>
         <!-- Slide 22: Comparison Table -->
         <section>
           <span class="section-label">Reasoning</span>
