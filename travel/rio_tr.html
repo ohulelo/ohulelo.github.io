@@ -802,4 +802,27 @@
           if (savedVal === 'true') {
             cb.checked = true;
           }
-  
+        });
+
+        // Save state on click
+        checkboxes.forEach(cb => {
+          cb.addEventListener('change', () => {
+            localStorage.setItem(cb.id, cb.checked);
+          });
+        });
+      });
+    </script>
+</body>
+<footer
+  style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #e6e4e0; text-align: center; color: #6e6b64; font-size: 0.9rem;">
+  <p>
+    Doğal zeka (<a href="https://www.instagram.com/ohulelo/" target="_blank" style="color: #2e5a44;">@ohulelo</a>) ve
+    yapay zekanın (<a href="https://antigravity.google" target="_blank">Antigravity</a>) işbirliği ile üretilmiştir.<br>
+    Her hangi eklenecek düzeltilecek bir şey görürseniz iletişiniz: <a href="mailto:tuncturker@gmail.com"
+      style="color: #2e5a44;">tuncturker@gmail.com</a> veya <a href="https://www.instagram.com/ohulelo/" target="_blank"
+      style="color: #2e5a44;">@ohulelo</a>.
+  </p>
+</footer>
+</div>
+
+</html>
