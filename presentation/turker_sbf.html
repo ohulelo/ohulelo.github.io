@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACE - Lensing Emulator - O Encontro de Primavera - SBF (EPSBF)</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css" />
+
+  <!-- Reveal.js Print PDF Stylesheet Injection -->
+  <script>
+    if (window.location.search.match(/print-pdf/gi)) {
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/css/print/pdf.css';
+      document.getElementsByTagName('head')[0].appendChild(link);
+    }
+  </script>
+
+  <style>
+    .highlight {
+      background-color: var(--highlight);
+      padding: 4px 8px;
+      color: var(--highlight) !important;
+      background: none !important;
+      padding: 0 !important;
+      font-weight: 700;
+    }
+
+    :root {
+      --idpasc-brand: #D97706;
+      --idpasc-brand-rgb: 240, 138, 51;
+      --accent: #B45309;
+      --accent-rgb: 232, 181, 79;
+      --text: #1C1917;
+      --muted: #78716C;
+      --bg-dark: #FAF6F0;
+      --bg-card: rgba(255, 255, 255, 0.75);
+      --highlight: #C73C2B;
+
+      /* Centralized Theme & Border Variables */
+      --border-brand: rgba(var(--idpasc-brand-rgb), 0.35);
+      --border-brand-strong: rgba(var(--idpasc-brand-rgb), 0.4);
+      --border-brand-subtle: rgba(var(--idpasc-brand-rgb), 0.25);
+      --bg-pill: rgba(var(--idpasc-brand-rgb), 0.15);
+      --bg-pill-hover: rgba(var(--idpasc-brand-rgb), 0.3);
+      --bg-table-even: rgba(var(--idpasc-brand-rgb), 0.08);
+      --shadow-card: rgba(120, 113, 108, 0.12);
+    }
+
+    .reveal-viewport {
+      background: radial-gradient(circle at 50% 50%, #FAF6F0 0%, #EFE8DE 100%) !important;
+    }
+
+    .reveal {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text);
+    }
+
+    .reveal .slides>section,
+    .reveal .slides section {
+      text-align: left !important;
+      padding-top: 0.2em !important;
+      padding-bottom: 0.2em !important;
+      padding-left: 0.1em !important;
+      padding-right: 0.3em !important;
+      box-sizing: border-box !important;
+    }
+
+    .reveal .slides section.stack {
+      padding: 0 !important;
+    }
+
+    /* ============================================================ */
+    /* REUSABLE LAYOUT & IMAGE UTILITY CLASSES                     */
+    /* ============================================================ */
+    .flex-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .flex-center-pt {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      padding-top: 100px;
+    }
+
+    .slide-img {
+      max-height: 500px;
+      max-width: 100%;
+      border-radius: 10px;
+      border: 1.5px solid var(--border-brand);
+      object-fit: contain;
+    }
+
+    .slide-img-sm {
+      height: 380px;
+      width: auto;
+    }
+
+    .slide-img-sm-vert {
+      width: 800px;
+      height: auto;
+    }
+
+    .slide-img-md {
+      height: 420px;
+      max-width: 100%;
+    }
+
+    .slide-img-lg {
+      height: 510px;
+      max-width: 100%;
+    }
+
+    /* Section dividers */
+    .section-label {
+      font-size: 0.45em;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4em;
+      display: inline-block;
+      border-bottom: 2px solid var(--idpasc-brand);
+      padding-bottom: 0.1em;
+    }
+
+    /* Title slide */
+    .reveal .slides section.title-slide,
+    .title-slide {
+      text-align: center !important;
+      padding-left: 0.8em !important;
+      padding-right: 0.8em !important;
+      padding-top: 1.5em !important;
+      padding-bottom: 1.5em !important;
+    }
+
+    .title-slide h1 {
+      font-size: 2.0em;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--text) 40%, var(--idpasc-brand) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.2em;
+      line-height: 1.2;
+    }
+
+    .reveal .subtitle {
+      font-size: 0.8em;
+      color: var(--idpasc-brand);
+      margin-bottom: 1.0em;
+      font-weight: 400;
+    }
+
+    .title-slide .meta {
+      font-size: 0.45em;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .title-slide .divider {
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--idpasc-brand), transparent);
+      margin: .8em auto .5em auto;
+    }
+
+    /* Skill pills */
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4em;
+      margin-top: 0.6em;
+    }
+
+    .pill {
+      font-size: 0.4em;
+      padding: 0.35em 0.8em;
+      border-radius: 999px;
+      border: 1px solid var(--border-brand-strong);
+      color: var(--accent);
+      background: var(--bg-pill);
+      transition: all 0.3s;
+    }
+
+    .pill:hover {
+      background: var(--bg-pill-hover);
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }
+
+    /* Slide headings */
+    .reveal h2 {
+      font-size: 1.0em;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 0.1em;
+      margin-bottom: 0.4em;
+      border-bottom: 2px solid var(--idpasc-brand);
+      padding-bottom: 0.2em;
+    }
+
+    .reveal h3 {
+      font-size: 0.7em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.3em;
+    }
+
+    /* Two-column layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 1.5em;
+      margin-top: 0.4em;
+      align-items: center;
+    }
+
+    /* Metric cards */
+    .metrics {
+      display: flex;
+      gap: 1.0em;
+      margin-top: 0.6em;
+      flex-wrap: wrap;
+    }
+
+    .metric-card {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+    }
+
+    .metric-card .number {
+      font-size: 1.3em;
+      font-weight: 800;
+      color: var(--highlight);
+      line-height: 1;
+    }
+
+    .metric-card .label {
+      font-size: 0.36em;
+      color: var(--muted);
+      margin-top: 0.3em;
+      line-height: 1.3;
+    }
+
+    /* Pipeline steps */
+    .pipeline {
+      display: flex;
+      align-items: stretch;
+      gap: 0.3em;
+      margin-top: 0.8em;
+      width: 100%;
+    }
+
+    .pipe-step {
+      text-align: center;
+      flex: 1 1 0px;
+      min-width: 0;
+      font-size: 0.35em !important;
+      line-height: 1.35 !important;
+      background: var(--bg-card) !important;
+      border: 1px solid var(--border-brand-subtle) !important;
+      border-radius: 10px !important;
+      padding: 0.6em 0.3em !important;
+      box-shadow: 0 8px 32px 0 var(--shadow-card) !important;
+      box-sizing: border-box !important;
+      transition: all 0.3s ease !important;
+      cursor: pointer;
+    }
+
+    .pipe-step:hover,
+    .pipe-step.active-step {
+      border-color: var(--idpasc-brand) !important;
+      background: rgba(var(--idpasc-brand-rgb), 0.18) !important;
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 8px 24px rgba(217, 119, 6, 0.25) !important;
+    }
+
+    .pipe-step.active-step .step-label {
+      color: var(--highlight) !important;
+    }
+
+    .pipeline-playground {
+      margin-top: 0.8em;
+      border: 1.5px solid var(--idpasc-brand);
+      border-radius: 12px;
+      padding: 0.8em 1.2em;
+      background: var(--bg-card);
+      box-shadow: 0 8px 32px 0 var(--shadow-card);
+      min-height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5em;
+      box-sizing: border-box;
+      transition: opacity 0.2s ease, border-color 0.3s ease;
+    }
+
+    .playground-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4em;
+      text-align: left;
+    }
+
+    .playground-title {
+      font-size: 0.6em;
+      font-weight: 700;
+      color: var(--idpasc-brand);
+      border-bottom: 1.5px solid var(--border-brand-subtle);
+      padding-bottom: 0.2em;
+    }
+
+    .playground-desc {
+      font-size: 0.42em;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .playground-figure {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-height: 200px;
+    }
+
+    .playground-figure img {
+      max-height: 190px;
+      max-width: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid var(--border-brand-subtle);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      cursor: zoom-in;
+    }
+
+    .pipe-step .step-label {
+      color: var(--accent);
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.2em;
+    }
+
+    .pipe-arrow {
+      color: var(--idpasc-brand);
+      font-size: 0.7em;
+      flex-shrink: 0;
+      font-weight: 700;
+      align-self: center;
+    }
+
+    .slide-arrow {
+      font-size: 2.2em;
+      color: var(--idpasc-brand);
+      flex-shrink: 0;
+      line-height: 1;
+      font-weight: 700;
+      align-self: flex-start;
+      margin-top: 1.8em;
+    }
+
+    /* Glassmorphism elements styling */
+    .compare-box,
+    .metric-card {
+      background: var(--bg-card) !important;
+      border: 1px solid var(--border-brand-subtle) !important;
+      border-radius: 10px !important;
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      padding-top: 0.6em !important;
+      padding-bottom: 0.6em !important;
+      padding-left: 0em !important;
+      padding-right: 0em !important;
+      box-shadow: 0 8px 32px 0 var(--shadow-card) !important;
+      transition: border-color 0.3s, transform 0.3s !important;
+    }
+
+    .compare-box:hover,
+    .metric-card:hover,
+    .pipe-step:hover {
+      border-color: var(--accent) !important;
+      transform: translateY(-2px);
+    }
+
+    /* Body text */
+    .body-text {
+      font-size: 0.48em;
+      color: var(--text);
+      line-height: 1.7;
+      margin-top: 0.4em;
+    }
+
+    .body-text strong {
+      color: var(--accent);
+    }
+
+    /* List */
+    .reveal ul {
+      list-style: none;
+      padding: 0;
+      margin: 0.4em 0;
+    }
+
+    .reveal ul li {
+      font-size: 0.48em;
+      color: var(--text);
+      padding: 0.2em 0;
+      padding-left: 1.2em;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .reveal ul li::before {
+      content: '✦';
+      color: var(--accent);
+      position: absolute;
+      left: 0;
+      font-size: 0.8em;
+    }
+
+    /* Comparison table */
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.0em;
+      margin-top: 0.6em;
+    }
+
+    .compare-box h4 {
+      font-size: 0.46em;
+      color: var(--accent);
+      margin: 0 0 0.5em 0;
+      font-weight: 700;
+    }
+
+    .compare-box p {
+      font-size: 0.38em;
+      color: var(--muted);
+      margin: 0.25em 0;
+      line-height: 1.5;
+    }
+
+    .compare-box p strong {
+      color: var(--text);
+    }
+
+    /* Quote */
+    .quote-box {
+      border-left: 4px solid var(--accent);
+      background: rgba(var(--accent-rgb), 0.05);
+      border-radius: 0 8px 8px 0;
+      padding: 0.6em 1.0em;
+      margin-top: 0.8em;
+    }
+
+    .quote-box p {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 0.55em;
+      color: var(--text);
+      font-style: italic;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Navigation hint */
+    .nav-hint {
+      position: fixed;
+      bottom: 12px;
+      right: 16px;
+      font-size: 0.32em;
+      color: var(--muted);
+      opacity: 0.6;
+      font-family: sans-serif;
+    }
+
+    /* IDPASC logo text */
+    .idpasc-tag {
+      font-size: 0.38em;
+      color: var(--idpasc-brand);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* Image zoom modal overlay */
+    .image-modal {
+      display: none;
+      position: fixed;
+      z-index: 99999;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(250, 246, 240, 0.95);
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .image-modal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+      border: 2px solid var(--border-brand-strong);
+      border-radius: 12px;
+    }
+
+    .reveal section.image-row {
+      display: flex !important;
+      flex-direction: row !important;
+      gap: 1.2em;
+      justify-content: center;
+      align-items: center;
+      height: 100% !important;
+    }
+
+    .reveal section.image-row img {
+      max-height: 420px;
+      max-width: 30%;
+      object-fit: contain;
+      border-radius: 10px;
+      border: 1.5px solid var(--border-brand);
+    }
+
+    /* Click-to-bold words */
+    .clickable-word {
+      cursor: pointer;
+      transition: font-weight 0.2s, color 0.2s;
+    }
+
+    .clickable-word:hover {
+      color: var(--accent);
+    }
+
+    .bold-word {
+      font-weight: 800 !important;
+      color: var(--highlight) !important;
+    }
+
+    /* Click-to-color MathJax equations */
+    mjx-container,
+    .MathJax {
+      cursor: pointer;
+      transition: color 0.2s, fill 0.2s;
+    }
+
+    mjx-container:hover,
+    .MathJax:hover {
+      color: var(--accent) !important;
+      fill: var(--accent) !important;
+    }
+
+    mjx-container.bold-math,
+    mjx-container.bold-math *,
+    mjx-container.bold-math svg path,
+    .MathJax.bold-math,
+    .MathJax.bold-math * {
+      color: var(--highlight) !important;
+      fill: var(--highlight) !important;
+      stroke: var(--highlight) !important;
+    }
+
+    /* Clickable name swap style */
+    .toonch-swap {
+      cursor: pointer;
+      transition: font-weight 0.2s, color 0.2s;
+      display: inline-block;
+    }
+
+    .toonch-swap:hover {
+      color: var(--accent);
+    }
+
+    .toonch-swap.toonched {
+      font-weight: 800 !important;
+      color: var(--highlight) !important;
+    }
+
+    /* Comparison Table Styling */
+    .reveal table.comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.55em;
+      margin: 0.8em auto;
+    }
+
+    .reveal table.comparison-table thead th {
+      padding: 0.6em 1.0em;
+      text-align: center;
+      font-weight: 700;
+      color: var(--accent);
+      border-bottom: 2px solid var(--idpasc-brand);
+    }
+
+    .reveal table.comparison-table thead th:first-child {
+      text-align: left;
+      color: var(--muted);
+    }
+
+    .reveal table.comparison-table tbody tr {
+      border-bottom: 1px solid rgba(240, 138, 51, 0.4);
+    }
+
+    .reveal table.comparison-table tbody tr:nth-child(even) {
+      background: rgba(240, 138, 51, 0.08);
+    }
+
+    .reveal table.comparison-table tbody td {
+      padding: 0.6em 1.0em;
+      text-align: center;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .reveal table.comparison-table tbody td:first-child {
+      text-align: left;
+      font-weight: 600;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .reveal table.comparison-table .good {
+      color: #15803D;
+      font-weight: 700;
+    }
+
+    .reveal table.comparison-table .bad {
+      color: #B91C1C;
+      font-weight: 700;
+    }
+
+    .reveal table.comparison-table .neutral {
+      color: var(--muted);
+    }
+
+    /* Controls & Progress visibility on light beige */
+    .reveal .controls {
+      color: var(--idpasc-brand) !important;
+    }
+
+    .reveal .progress {
+      background: rgba(120, 113, 108, 0.2) !important;
+    }
+
+    .reveal .progress span {
+      background: var(--idpasc-brand) !important;
+    }
+
+    /* Parameter Box Component */
+    .param-title {
+      font-size: 0.55em;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.1em;
+    }
+
+    .param-box {
+      border: 1.5px solid var(--border-brand);
+      border-radius: 10px;
+      padding: 0.8em 1.2em;
+      background: var(--bg-card);
+      display: flex;
+      flex-direction: column;
+      gap: 0.3em;
+      box-shadow: 0 8px 32px 0 var(--shadow-card);
+    }
+
+    .param-row {
+      font-size: 0.65em;
+      color: var(--text);
+      line-height: 1.4;
+      display: flex;
+      align-items: baseline;
+      justify-content: left;
+      margin-left: 3em;
+      gap: 0.4em;
+    }
+
+    .param-row .symbol {
+      color: var(--accent);
+      font-weight: 600;
+      min-width: 2em;
+      font-style: italic;
+    }
+
+    .param-row .range {
+      color: var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ============================================================ -->
+      <!-- PART 1: TITLE SLIDES SEQUENCE (BUILD-UP ANIMATION)           -->
+      <!-- ============================================================ -->
+
+      <!-- Slide 1: Title Stack (Opening Page + 5 Nested Pages) -->
+      <section>
+        <!-- Slide 1: Title (Plain) -->
+        <section class="title-slide" style="padding-top: 0.2em !important;">
+          <p class="idpasc-tag">VI Encontro de Primavera - Sociedade Brasileira de Física</p>
+          <div class="divider"></div>
+          <h1>ACE - Lensing Emulator</h1>
+          <p class="subtitle">Beyond Gaussian Likelihoods:<br />
+            Gravitational Lensing for Type Ia Supernova Cosmology.</p>
+          <div class="divider" style="margin-bottom: 0.2em;"></div>
+          <p class="meta">
+            <span class="toonch-swap" onclick="toggleToonch(this)">Tunç</span> Türker · PhD Candidate · UFES,
+            Brazil<br />
+            Supervisor: Dr. Valerio Marra<br />
+            September 2026
+          </p>
+          <!-- Affiliation Logos -->
+          <div
+            style="display: flex; justify-content: center; gap: 2em; align-items: center; margin-top: .5em; margin-left: 0.1em; width: 100%;">
+            <div style="width: 320px; display: flex; justify-content: center; align-items: center;">
+              <img src="ufeslogo.png"
+                style="height: 160px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));" />
+            </div>
+            <div style="width: 320px; display: flex; justify-content: center; align-items: center;">
+              <img src="ppgcosmo.png"
+                style="height: 160px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));" />
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 1: Title (Plain) -->
+        <section class="title-slide" style="padding-top: 0.2em !important;">
+          <p class="idpasc-tag">VI Encontro de Primavera - Sociedade Brasileira de Física</p>
+          <div class="divider"></div>
+          <h1>ACE - Lensing Emulator</h1>
+          <p class="subtitle">Accurate cosmological emulator for the probability
+            distribution function of gravitational lensing of point sources.</p>
+          <p class="meta" style="margin-top: -1em; margin-bottom: -1em;"> <span class="toonch-swap"
+              onclick="toggleToonch(this)">Tunç</span>
+            Türker$^1$, Valerio Marra, Tiago Castro, Miguel Quartin, and
+            Stefano Borgani
+          </p>
+          <div class="divider" style="margin-bottom: 0.2em;"></div>
+          <p class="meta">
+            $^1$ PhD Candidate · UFES,
+            Brazil<br />
+            Supervisor: Dr. Valerio Marra<br />
+            September 2026
+          </p>
+          <!-- Affiliation Logos -->
+          <div
+            style="display: flex; justify-content: center; gap: 2em; align-items: center; margin-top: .5em; margin-left: 0.1em; width: 100%;">
+            <div style="width: 320px; display: flex; justify-content: center; align-items: center;">
+              <img src="ufeslogo.png"
+                style="height: 160px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));" />
+            </div>
+            <div style="width: 320px; display: flex; justify-content: center; align-items: center;">
+              <img src="ppgcosmo.png"
+                style="height: 160px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));" />
+            </div>
+          </div>
+        </section>
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- PART 2: PROBLEM & METHODOLOGY                                -->
+      <!-- ============================================================ -->
+
+      <section>
+        <!-- Slide 1: Problem -->
+        <section>
+          <span class="section-label">Problem</span>
+          <h2>Noise or Meaningful data?</h2>
+
+          <div class="body-text" style="margin-top: 0.8em; margin-bottom: 0.8em;">
+            Gravitational lensing <strong>distorts</strong> the light from distant objects.
+          </div>
+
+          <div class="flex-center">
+            <img class="slide-img slide-img-md" src="gravitational_lensing.png" />
+          </div>
+          <div class="body-text" style="margin-top: 0.1em; margin-bottom: 0.8em; text-align: center;">
+            How does this lensing effect depend on cosmology?
+          </div>
+        </section>
+
+        <!-- Slide 2: Gaussian Treatment -->
+        <section>
+          <span class="section-label">Methodology</span>
+          <h2>Gaussian Treatment</h2>
+          <div class="body-text" style="margin-top: 0.8em; margin-bottom: -1.2em;">
+            The total uncertainty on the distance in Pantheon+ (2202.04077) is given by
+            $$\sigma_{\mu,i}^2 = \sigma_{\text{meas},i}^2 + \sigma_{\text{floor},i}^2 + \sigma_{\text{lens},i}^2 +
+            \sigma_{z,i}^2 + \sigma_{\text{vpec},i}^2$$
+          </div>
+          <div class="flex-center">
+            <img class="slide-img" style="max-height:420px;" src="gaus.png" />
+          </div>
+        </section>
+
+        <!-- Slide 3: Theoretical Modeling -->
+        <section>
+          <span class="section-label">Methodology</span>
+          <h2>Theoretical Modeling</h2>
+          <div class="flex-center-pt">
+            <img class="slide-img slide-img-sm-vert" src="swisscheese.png" />
+          </div>
+        </section>
+
+        <!-- Slide 4: Simulations 1 -->
+        <section>
+          <span class="section-label">Methodology</span>
+          <h2>Simulations</h2>
+          <div
+            style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5em; width: 100%; margin-top: 0.4em;">
+            <!-- Parameters -->
+            <div
+              style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0.3em; flex: 1;">
+              <div class="param-title">Parameters</div>
+              <div class="param-box"
+                style="width: 500px; height: 300px; justify-content: center; box-sizing: border-box;">
+                <div class="param-row"><span class="symbol">Ω<sub>m</sub>, h , w,
+                    σ<sub>8</sub>, ...</span><span class="range"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="slide-arrow">→</div>
+
+            <!-- Simulation Image -->
+            <div
+              style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0.3em; flex: 1;">
+              <div class="param-title">N-Body Simulation</div>
+              <div
+                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; overflow: hidden; background: var(--bg-card); width: 100%; display: flex; align-items: center; justify-content: center; padding: 0.1em; box-shadow: 0 8px 32px 0 rgba(120, 113, 108, 0.12);">
+                <img src="simulation.png" alt="N-Body Simulation"
+                  style="max-height: 400px; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 5: Simulations 2 -->
+        <section>
+          <span class="section-label">Methodology</span>
+          <h2>Simulations</h2>
+          <div
+            style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5em; width: 100%; margin-top: 0.4em;">
+            <!-- Simulation Image -->
+            <div
+              style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0.3em; flex: 1;">
+              <div class="param-title">Simulation Snapshots</div>
+              <div
+                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; overflow: hidden; background: var(--bg-card); width: 100%; display: flex; align-items: center; justify-content: center; padding: 0.1em; box-shadow: 0 8px 32px 0 rgba(120, 113, 108, 0.12);">
+                <img src="simulation.png" alt="N-Body Simulation"
+                  style="max-height: 400px; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="slide-arrow">→</div>
+
+            <!-- Simulation Image -->
+            <div
+              style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0.3em; flex: 1;">
+              <div class="param-title">Ray-Tracing</div>
+              <div
+                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; overflow: hidden; background: var(--bg-card); width: 100%; display: flex; align-items: center; justify-content: center; padding: 0.1em; box-shadow: 0 8px 32px 0 rgba(120, 113, 108, 0.12);">
+                <img src="raytracing1.png" alt="Ray-Tracing Simulation"
+                  style="max-height: 320px; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
+              </div>
+              <div
+                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; overflow: hidden; background: var(--bg-card); width: 100%; display: flex; align-items: center; justify-content: center; padding: 0.1em; box-shadow: 0 8px 32px 0 rgba(120, 113, 108, 0.12);">
+                <img src="raytracing2.png" alt="Ray-Tracing Simulation"
+                  style="max-height: 320px; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 6: Simulations 3 -->
+        <section>
+          <span class="section-label">Methodology</span>
+          <h2>Simulations</h2>
+          <div
+            style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5em; width: 100%; margin-top: 0.4em;">
+            <!-- Simulation Image -->
+            <div
+              style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0.3em; flex: 1;">
+              <div class="param-title">Ray-Tracing</div>
+              <div
+                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; overflow: hidden; background: var(--bg-card); width: 100%; display: flex; align-items: center; justify-content: center; padding: 0.1em; box-shadow: 0 8px 32px 0 rgba(120, 113, 108, 0.12);">
+                <img src="raytracing1.png" alt="Ray-Tracing Simulation"
+                  style="max-height: 320px; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
+              </div>
+              <div
+                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; overflow: hidden; background: var(--bg-card); width: 100%; display: flex; align-items: center; justify-content: center; padding: 0.1em; box-shadow: 0 8px 32px 0 rgba(120, 113, 108, 0.12);">
+                <img src="raytracing2.png" alt="Ray-Tracing Simulation"
+                  style="max-height: 320px; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="slide-arrow">→</div>
+
+            <!-- Simulation Image -->
+            <div
+              style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0.3em; flex: 1;">
+              <div class="param-title">Density Map</div>
+              <div
+                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; overflow: hidden; background: var(--bg-card); width: 100%; display: flex; align-items: center; justify-content: center; padding: 0.1em; box-shadow: 0 8px 32px 0 rgba(120, 113, 108, 0.12);">
+                <img src="simulation_last.png" alt="Magnification Map"
+                  style="max-height: 400px; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 7: Simulations 4 -->
+        <section>
+          <span class="section-label">Methodology</span>
+          <h2>Simulations</h2>
+          <div
+            style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5em; width: 100%; margin-top: 0.4em;">
+            <!-- Simulation Image -->
+            <div
+              style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0.3em; flex: 1;">
+              <div class="param-title">Density Map</div>
+              <div
+                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; overflow: hidden; background: var(--bg-card); width: 100%; display: flex; align-items: center; justify-content: center; padding: 0.1em; box-shadow: 0 8px 32px 0 rgba(120, 113, 108, 0.12);">
+                <img src="simulation_last.png" alt="Magnification Map"
+                  style="max-height: 400px; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="slide-arrow">→</div>
+
+            <!-- Simulation Image -->
+            <div
+              style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0.3em; flex: 1;">
+              <div class="param-title">Statistics</div>
+              <div style="border: 1.5px solid var(--idpasc-brand); max-width: 450px; border-radius: 10px; overflow:
+                hidden; background: var(--bg-card); width: 100%; display: flex; align-items: center; justify-content:
+                center; padding: 0.1em; box-shadow: 0 8px 32px 0 rgba(120, 113, 108, 0.12);">
+                <img src="pdf.png" alt="Lensing PDF"
+                  style="object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
+              </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Emulator  -->
+        <section>
+          <span class="section-label">Methodology</span>
+          <h2>Emulator</h2>
+          <div
+            style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5em; width: 100%; margin-top: 0.4em;">
+            <!-- Parameters -->
+            <div
+              style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0.3em; flex: 1;">
+              <div class="param-title">Parameters</div>
+              <div class="param-box"
+                style="width: 500px; height: 300px; justify-content: center; box-sizing: border-box;">
+                <div class="param-row"><span class="symbol">Ω<sub>m</sub>, h , w,
+                    σ<sub>8</sub>, ...</span><span class="range"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="slide-arrow">→</div>
+
+            <!-- Statistics / Plot -->
+            <div
+              style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0.3em; flex: 1;">
+              <div class="param-title">Statistics</div>
+              <div style="border: 1.5px solid var(--idpasc-brand); max-width: 450px; border-radius: 10px; overflow:
+                hidden; background: var(--bg-card); width: 100%; display: flex; align-items: center; justify-content:
+                center; padding: 0.1em; box-shadow: 0 8px 32px 0 rgba(120, 113, 108, 0.12);">
+                <img src="pdf.png" alt="Lensing PDF"
+                  style="object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- PART 3: APPROACH & RATIONALE                                 -->
+      <!-- ============================================================ -->
+
+      <section>
+        <!-- Slide 9: Comparison Table -->
+        <section>
+          <span class="section-label">Approach & Reasoning</span>
+          <h2>What does emulator bring?</h2>
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Traditional Methods</th>
+                <th>Emulator-Based Method</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Computational Cost</td>
+                <td class="bad">High</td>
+                <td class="good">Low</td>
+              </tr>
+              <tr>
+                <td>Speed</td>
+                <td class="bad">Slow</td>
+                <td class="good">Fast</td>
+              </tr>
+              <tr>
+                <td>Flexibility</td>
+                <td class="neutral">Depends on simulation or model</td>
+                <td class="good">High</td>
+              </tr>
+              <tr>
+                <td>Accuracy</td>
+                <td class="good">High</td>
+                <td class="neutral">Good Enough</td>
+              </tr>
+              <tr>
+                <td>Use Case</td>
+                <td class="neutral">Detailed modeling</td>
+                <td class="neutral">Fast parameter estimation</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+
+        <!-- Slide 10: Rationale Pipeline -->
+        <section style="padding-right: 0.5em !important;">
+          <span class="section-label">Approach & Reasoning</span>
+          <h2>Full Pipeline</h2>
+
+          <div class="body-text" style="margin-bottom: 0.4em;">
+            Instead of running the simulations, we <strong>built a machine learning emulator</strong>
+            that maps cosmological parameters → lensing PDF.
+            <br>This replaces a <strong>24-hour simulation</strong> with a <strong>millisecond prediction</strong>.
+          </div>
+
+          <div class="pipeline">
+            <div class="pipe-step" onclick="showPlaygroundStep(1, event)">
+              <span class="step-label">1. Simulations</span>
+              N-body simulations.
+            </div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-step" onclick="showPlaygroundStep(2, event)">
+              <span class="step-label">2. Ray-Tracing</span>
+              Constructing Light Cones.
+            </div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-step" onclick="showPlaygroundStep(3, event)">
+              <span class="step-label">3. Data Compression</span>
+              Compressing PDFs.
+            </div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-step" onclick="showPlaygroundStep(4, event)">
+              <span class="step-label">4. XGBoost</span>
+              Training models.
+            </div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-step" onclick="showPlaygroundStep(5, event)">
+              <span class="step-label">5. Emulator</span>
+              Predict PDF.
+            </div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-step" onclick="showPlaygroundStep(6, event)">
+              <span class="step-label">6. MCMC</span>
+              Infer parameters.
+            </div>
+          </div>
+
+          <!-- Interactive Playground Panel (Hidden by default, shown when a step is clicked) -->
+          <div id="pipeline-playground" class="pipeline-playground" style="display: none;">
+            <div class="playground-info">
+              <div id="playground-title" class="playground-title">1. N-Body Simulations</div>
+              <div id="playground-desc" class="playground-desc">
+                <i>OpenGadget3</i>, Dark matter only (DMO) simulations run across 70 cosmological parameter combinations
+                (Ω<sub>m</sub>, h, w, σ<sub>8</sub>).
+              </div>
+            </div>
+            <div class="playground-figure">
+              <img id="playground-img" src="simulation_param.png" alt="Pipeline Step Preview" />
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 11: Emulator showing PCA Components -->
+        <section>
+          <span class="section-label">Approach & Reasoning</span>
+          <h2>Emulator</h2>
+          <div
+            style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5em; width: 100%; margin-top: 0.4em;">
+            <!-- Parameters -->
+            <div
+              style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0.3em; flex: 1;">
+              <div class="param-title">Parameters</div>
+              <div class="param-box"
+                style="width: 500px; height: 300px; justify-content: center; box-sizing: border-box;">
+                <div class="param-row"><span class="symbol">Ω<sub>m</sub></span><span class="range">→ (0.2 – 0.4)</span>
+                </div>
+                <div class="param-row"><span class="symbol">h</span><span class="range">→ (0.6 – 0.8)</span></div>
+                <div class="param-row"><span class="symbol">w</span><span class="range">→ (−1.5 – −0.7)</span></div>
+                <div class="param-row"><span class="symbol">σ<sub>8</sub></span><span class="range">→ (0.7 – 0.9)</span>
+                </div>
+                <div class="param-row"><span class="symbol">z</span><span class="range">→ (0.3 – 6)</span></div>
+              </div>
+              <!-- Metric card below parameters -->
+              <div class="metric-card"
+                style="margin-top: 0.3em; width: 500px; text-align: center; padding: 0.4em 0.6em !important; box-sizing: border-box;">
+                <div class="number" style="font-size: 1.1em;">70</div>
+                <div class="label" style="font-size: 0.32em;">Different cosmologies</div>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="slide-arrow">→</div>
+
+            <!-- Statistics / Plot -->
+            <div
+              style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0.3em; flex: 1;">
+              <div class="param-title">4 PCA Components</div>
+              <div
+                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; overflow: hidden; background: var(--bg-card); width: 450px; height: 300px; display: flex; align-items: center; justify-content: center; padding: 0.3em; box-shadow: 0 8px 32px 0 rgba(120, 113, 108, 0.12); box-sizing: border-box;">
+                <img src="pca.png" alt="Lensing PDF"
+                  style="height: 380px; max-width: 100%; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
+              </div>
+              <!-- Metric card below plot -->
+              <div class="metric-card"
+                style="margin-top: 0.3em; width: 450px; text-align: center; padding: 0.4em 0.6em !important; box-sizing: border-box;">
+                <div class="number" style="font-size: 1.1em;">1.5k</div>
+                <div class="label" style="font-size: 0.32em;">PDFs</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- Slide 12: Emulator with Parameters and PDFs -->
+        <section>
+          <span class="section-label">Approach & Reasoning</span>
+          <h2>Emulator</h2>
+          <div
+            style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5em; width: 100%; margin-top: 0.4em;">
+            <!-- Parameters -->
+            <div
+              style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0.3em; flex: 1;">
+              <div class="param-title">Parameters</div>
+              <div class="param-box"
+                style="width: 500px; height: 300px; justify-content: center; box-sizing: border-box;">
+                <div class="param-row"><span class="symbol">Ω<sub>m</sub></span><span class="range">→ (0.2 – 0.4)</span>
+                </div>
+                <div class="param-row"><span class="symbol">h</span><span class="range">→ (0.6 – 0.8)</span></div>
+                <div class="param-row"><span class="symbol">w</span><span class="range">→ (−1.5 – −0.7)</span></div>
+                <div class="param-row"><span class="symbol">σ<sub>8</sub></span><span class="range">→ (0.7 – 0.9)</span>
+                </div>
+                <div class="param-row"><span class="symbol">z</span><span class="range">→ (0.3 – 6)</span></div>
+              </div>
+              <!-- Metric card below parameters -->
+              <div class="metric-card"
+                style="margin-top: 0.3em; width: 500px; text-align: center; padding: 0.4em 0.6em !important; box-sizing: border-box;">
+                <div class="number" style="font-size: 1.1em;">70</div>
+                <div class="label" style="font-size: 0.32em;">Different cosmologies</div>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="slide-arrow">→</div>
+
+            <!-- Statistics / Plot -->
+            <div
+              style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 0.3em; flex: 1;">
+              <div class="param-title">4 PCA Components</div>
+              <div
+                style="border: 1.5px solid var(--idpasc-brand); border-radius: 10px; overflow: hidden; background: var(--bg-card); width: 450px; height: 300px; display: flex; align-items: center; justify-content: center; padding: 0.3em; box-shadow: 0 8px 32px 0 rgba(120, 113, 108, 0.12); box-sizing: border-box;">
+                <img src="pdf.png" alt="Lensing PDF"
+                  style="height: 380px; max-width: 100%; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
+              </div>
+              <!-- Metric card below plot -->
+              <div class="metric-card"
+                style="margin-top: 0.3em; width: 450px; text-align: center; padding: 0.4em 0.6em !important; box-sizing: border-box;">
+                <div class="number" style="font-size: 1.1em;">1.5k</div>
+                <div class="label" style="font-size: 0.32em;">PDFs</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+        <!-- Slide 13: Performance -->
+        <section>
+          <span class="section-label">Reasoning</span>
+          <h2>Performance</h2>
+          <div class="body-text" style="margin-top: 0.8em; margin-bottom: 0.4em;">
+            A median Kullback–Leibler divergence of 0.007$$D_{\text{KL}}(P\parallel Q)=\sum _{x\in {\mathcal
+            {X}}}P(x)\,\log {\frac
+            {P(x)}{Q(x)}}$$
+          </div>
+          <div class="two-col" style="margin-top: -0.2em; grid-template-columns: 1fr 1fr; align-items: center;">
+            <div
+              style="display:flex; justify-content:center; border: 1.5px solid var(--idpasc-brand); border-radius: 10px; overflow: hidden; background: var(--bg-card); box-shadow: 0 8px 32px 0 rgba(120, 113, 108, 0.12); box-sizing: border-box;">
+              <img src="performance.png" alt="Performance"
+                style="width: 350px; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
+            </div>
+            <div
+              style="display:flex; justify-content:center; border: 1.5px solid var(--idpasc-brand); border-radius: 10px; overflow: hidden; background: var(--bg-card); box-shadow: 0 8px 32px 0 rgba(120, 113, 108, 0.12); box-sizing: border-box;">
+              <img src="kl_histograms_wo_grid.png" alt="KL divergence"
+                style="width: 350px; object-fit: contain; border-radius: 6px; cursor: zoom-in;" />
+            </div>
+          </div>
+        </section>
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- PART 4: SOLUTION IMPLEMENTED & PERFORMANCE                  -->
+      <!-- ============================================================ -->
+
+      <section>
+        <!-- Slide 14: Supernova Analysis -->
+        <section>
+          <span class="section-label">PARAMETER INFERENCE</span>
+          <h2>TYPE IA SUPERNOVA COSMOLOGY</h2>
+          <div class="body-text" style="margin-top: 0.8em; margin-bottom: 0.4em;">
+            Pantheon+ (2202.04077) total distance uncertainty:
+            $$
+            \sigma_{\mu,i}^2 = \sigma_{\text{meas},i}^2 + \sigma_{\text{floor},i}^2 +
+            \textcolor{red}{\sigma_{\text{lens},i}^2} +\sigma_{z,i}^2 + \sigma_{\text{vpec},i}^2
+            $$
+          </div>
+          <div class="body-text" style="margin-top: 0.8em;">
+            Jönsson et al. (2010)
+            $$
+            \sigma_{\text{lens},i} = 0.055 z_i
+            $$
+          </div>
+          <div class="body-text" style="margin-top: 0.8em;">
+            Statistical covariance matrix:
+            $$
+            C_{\text{stat}}(i, j) = \begin{cases}
+            \sigma_{\mu, i}^2 & i = j \\[0.4em]
+            \sigma_{\text{floor}, i}^2 + \sigma_{\text{lens}, i}^2 + \sigma_{z, i}^2 + \sigma_{\text{vpec}, i}^2 & i
+            \neq j \ \&\ \text{SN}_i = \text{SN}_j
+            \end{cases}
+            $$
+          </div>
+          <div class="body-text" style="margin-top: 0.8em;">
+            Gaussian Likelihood:
+            $$
+            -2 \ln (L)=\chi^2=\Delta \vec{D}^{\top}\, C^{-1}_{\mathrm{stat} + \mathrm{syst}}\, \Delta \vec{D}
+            $$
+          </div>
+        </section>
+
+        <!-- Slide 15: Likelihood Models -->
+        <section>
+          <span class="section-label">PARAMETER INFERENCE</span>
+          <h2>MCMC Likelihood Models</h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5em; width: 100%; margin-top: 0.3em;">
+
+            <!-- Gaussian Fixed -->
+            <div class="compare-box" data-mode="fixed"
+              style="padding: 0.4em 0.6em !important; display: flex; flex-direction: column; justify-content: center; min-height: auto;">
+              <h4 style="margin: 0 0 0.3em 0; font-size: 0.5em; color: var(--accent); text-align: center;">1. Gaussian
+                (Fixed)</h4>
+              <div style="font-size: 0.36em; text-align: center; color: var(--text);">
+                $$\mathcal{L}_i = \mathcal{N}(\Delta\mu_i;\; 0,\, \sigma_i^2)$$
+                <div style="margin-top: 0.3em; color: var(--muted); font-size: 0.85em;">
+                  $$\sigma_i^2 = \sigma_{\rm int}^2 + \sigma_{\rm meas, i}^2 + \sigma_{\rm lens, fid}^2(z_i)$$
+                </div>
+              </div>
+            </div>
+
+            <!-- Gaussian ACE -->
+            <div class="compare-box" data-mode="ace"
+              style="padding: 0.4em 0.6em !important; display: flex; flex-direction: column; justify-content: center; min-height: auto;">
+              <h4 style="margin: 0 0 0.3em 0; font-size: 0.5em; color: var(--accent); text-align: center;">2. Gaussian
+                (ACE)</h4>
+              <div style="font-size: 0.36em; text-align: center; color: var(--text);">
+                $$\mathcal{L}_i = \mathcal{N}(\Delta\mu_i;\; 0,\, \sigma_i^2(\theta))$$
+                <div style="margin-top: 0.3em; color: var(--muted); font-size: 0.85em;">
+                  $$\sigma_i^2(\theta) = \sigma_{\rm int}^2 + \sigma_{\rm meas, i}^2 + \sigma_{\rm lens}^2(z_i,
+                  \theta)$$
+                </div>
+              </div>
+            </div>
+
+            <!-- Edgeworth -->
+            <div class="compare-box" data-mode="edgeworth"
+              style="padding: 0.4em 0.6em !important; display: flex; flex-direction: column; justify-content: center; min-height: auto;">
+              <h4 style="margin: 0 0 0.3em 0; font-size: 0.5em; color: var(--accent); text-align: center;">3.
+                Edgeworth
+                Expansion</h4>
+              <div style="font-size: 0.36em; text-align: center; color: var(--text);">
+                $$p(\Delta\mu_i) \approx \mathcal{N}(\Delta\mu_i;\; 0,\, \sigma_i^2) \left[1 +
+                \frac{\kappa_3}{6\sigma_i^3}H_3\left(\frac{\Delta\mu_i}{\sigma_i}\right) +
+                \frac{\kappa_4}{24\sigma_i^4}H_4\left(\frac{\Delta\mu_i}{\sigma_i}\right)\right]$$
+                <div style="margin-top: 0.3em; color: var(--muted); font-size: 0.85em;">
+                  $$\sigma_i^2 = \sigma_{\rm int}^2 + \sigma_{\rm meas, i}^2 + \sigma_{\rm lens, fid}^2(z_i)$$
+                </div>
+              </div>
+            </div>
+
+            <!-- Full Convolution -->
+            <div class="compare-box" data-mode="full"
+              style="padding: 0.4em 0.6em !important; display: flex; flex-direction: column; justify-content: center; min-height: auto;">
+              <h4 style="margin: 0 0 0.3em 0; font-size: 0.5em; color: var(--accent); text-align: center;">4. Full
+                Convolution</h4>
+              <div style="font-size: 0.36em; text-align: center; color: var(--text);">
+                $$\mathcal{L}_i = \int \mathcal{N}(\Delta\mu_i - \delta\mu;\; 0,\, \sigma_{\rm int}^2 + \sigma_{\rm
+                meas,i}^2) \, p_{\rm ace}(\delta\mu \,|\, z_i, \theta) \, \mathrm{d}(\delta\mu)$$
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </section>
+
+
+      <!-- ============================================================ -->
+      <!-- PART 5: FUTURE WORK & CLOSE                                  -->
+      <!-- ============================================================ -->
+
+      <!-- Slide 16: Thank you -->
+      <section>
+        <section class="title-slide">
+          <div class="divider" style="margin: 2.5em auto 1em auto;"></div>
+          <h1>Thank you</h1>
+          <p class="subtitle">Questions?</p>
+          <div class="divider"></div>
+          <p class="meta">
+            <span class="toonch-swap" onclick="toggleToonch(this)">Tunç</span> Türker<br />
+            tuncturker.work@gmail.com
+          </p>
+        </section>
+        <!-- Slide 17: Problem -->
+        <section>
+          <span class="section-label">Now</span>
+          <h2>Problem to solve</h2>
+          <p class="subtitle">Decision Tree Discretization</p>
+          <div class="flex-center">
+            <img class="slide-img slide-img-sm" src="discretization.png" />
+          </div>
+        </section>
+        <!-- Slide 18: Gaussian Parameter-Dependent Covariance -->
+        <section>
+          <span class="section-label">Now</span>
+          <h2>Problem to solve</h2>
+          <p class="subtitle">The Gaussian Parameter-Dependent Covariance Bias</p>
+          <div class="body-text" style="margin-top: 0.8em; margin-bottom: 0.4em;">
+            In a Gaussian likelihood where the variance changes with cosmology ( \(\sigma_{\text{tot}}^2 (\Omega_m,w)\)
+            ),
+            the log-likelihood is:
+            $$
+            \ln L=-
+            0.5\sum\left[\frac{(r_i - \mu_{th}(z_i;\theta))^2}{\sigma_{\rm tot}^2}+\ln\left(\sigma_{\rm tot}^2
+            \right)\right]
+            $$
+            where \(\mu_i\) is the theoretical value of the distance modulus predicted by the cosmological
+            model, and \(\sigma_{\rm tot}\) is the total distance modulus uncertainty.
+          </div>
+        </section>
+      </section>
+    </div>
+    </section>
+    </section>
+
+
+
+  </div>
+  </div>
+
+  <div class="nav-hint">← → navigate · ↓ dive deeper</div>
+
+  <!-- Lightbox overlay -->
+  <div id="lightbox"
+    style="display:none; position:fixed; inset:0; background:rgba(250,246,240,0.88); z-index:9999; align-items:center; justify-content:center; cursor:zoom-out;">
+    <img id="lightbox-img"
+      style="max-width:90vw; max-height:90vh; border-radius:8px; object-fit:contain; box-shadow:0 0 60px rgba(240,138,51,0.3);" />
+  </div>
+
+  <!-- Mode detail modal overlay -->
+  <div id="mode-modal"
+    style="display:none; position:fixed; inset:0; background:rgba(250,246,240,0.95); z-index:99999; align-items:center; justify-content:center; cursor:pointer; backdrop-filter:blur(15px); -webkit-backdrop-filter:blur(15px); font-family:'Inter', system-ui, sans-serif;">
+    <div id="mode-modal-content" class="compare-box"
+      style="max-width:750px; width:90%; padding:2.2em !important; cursor:default; border:2px solid var(--accent) !important; background:rgba(255,255,255,0.98) !important; box-shadow:0 0 50px rgba(232,181,79,0.25) !important; font-family:'Inter', system-ui, sans-serif;">
+      <h3 id="mode-modal-title"
+        style="font-size:32px !important; font-family:'Inter', system-ui, sans-serif; color:var(--accent); margin-bottom:0.8em; text-align:center; text-transform:none !important; letter-spacing:normal !important; font-weight:700;">
+      </h3>
+      <div id="mode-modal-body"
+        style="font-size:20px !important; font-family:'Inter', system-ui, sans-serif; color:var(--text); line-height:1.6;">
+      </div>
+      <div
+        style="text-align:center; margin-top:2em; font-size:14px !important; font-family:'Inter', system-ui, sans-serif; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em;">
+        Click anywhere outside to close</div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/math/math.min.js"></script>
+  <script>
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    document.addEventListener('click', function (e) {
+      if (e.target.tagName === 'IMG' && e.target !== lightboxImg) {
+        lightboxImg.src = e.target.src;
+        lightbox.style.display = 'flex';
+      }
+    });
+
+    lightbox.addEventListener('click', function () {
+      lightbox.style.display = 'none';
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        lightbox.style.display = 'none';
+        document.getElementById('mode-modal').style.display = 'none';
+      }
+    });
+
+    // MCMC Likelihood Modes details mapping
+    const modeDetails = {
+      fixed: {
+        title: "1. Gaussian (Fixed) Likelihood",
+        body: `
+          <ul style="margin: 0; padding-left: 1.2em;">
+            <li style="margin-bottom: 0.8em;"><strong>Standard Baseline Approach</strong>: Used in traditional supernova analysis pipelines (such as Pantheon+).</li>
+            <li style="margin-bottom: 0.8em;"><strong>Constant Variance</strong>: Models weak lensing scatter using a Gaussian where the lensing dispersion \\(\\sigma_{\\rm lens}\\) is frozen at the fiducial cosmology:
+              $$ \\sigma_i^2 = \\sigma_{\\rm int}^2 + \\sigma_{\\rm meas, i}^2 + \\sigma_{\\rm lens, fid}^2(z_i) $$
+            </li>
+            <li style="margin-bottom: 0.8em;"><strong>Non-Linear Mean Subtraction</strong>: Explicitly subtracts the non-zero mean lensing shift in magnitude space (calculated at the fiducial cosmology) to prevent bias:
+              $$ \\mathcal{L}_i = \\mathcal{N}(\\hat{\\mu}_i - \\mu_{\\rm th}(z_i, \\theta) - \\langle\\delta\\mu_i\\rangle_{\\rm fid};\\, 0,\\, \\sigma_i^2) $$
+            </li>
+            <li><strong>Limitations</strong>: Computationally very cheap, but completely ignores the physical non-Gaussian skewness and heavy tail of the true weak lensing magnification PDF.</li>
+          </ul>
+        `
+      },
+      ace: {
+        title: "2. Gaussian (ACE) Likelihood",
+        body: `
+          <ul style="margin: 0; padding-left: 1.2em;">
+            <li style="margin-bottom: 0.8em;"><strong>Cosmology-Dependent Variance</strong>: Still approximates the likelihood as Gaussian, but updates the variance dynamically at each step using the emulator:
+              $$ \\sigma_i^2(\\theta) = \\sigma_{\\rm int}^2 + \\sigma_{\\rm meas, i}^2 + \\sigma_{\\rm lens}^2(z_i, \\theta) $$
+            </li>
+            <li style="margin-bottom: 0.8em;"><strong>Non-Linear Mean Subtraction</strong>: Dynamically subtracts the cosmology-dependent mean lensing magnitude shift \\(\\langle\\delta\\mu_i\\rangle\\) at each step:
+              $$ \\mathcal{L}_i = \\mathcal{N}(\\hat{\\mu}_i - \\mu_{\\rm th}(z_i, \\theta) - \\langle\\delta\\mu_i\\rangle;\\, 0,\\, \\sigma_i^2(\\theta)) $$
+            </li>
+            </ul>
+        `
+      },
+      edgeworth: {
+        title: "3. Edgeworth Expansion Likelihood",
+        body: `
+          <ul style="margin: 0; padding-left: 1.2em;">
+            <li style="margin-bottom: 0.8em;"><strong>Analytical Corrections</strong>: Captures leading-order non-Gaussian corrections using Hermite polynomials \\(H_3\\) and \\(H_4\\) modulated by skewness (\\(\\kappa_3\\)) and excess kurtosis (\\(\\kappa_4\\)), centered by subtracting the mean lensing shift \\(\\langle\\delta\\mu_i\\rangle\\):
+              $$ p(\\Delta\\mu - \\langle\\delta\\mu_i\\rangle) \\approx \\mathcal{N}(\\Delta\\mu - \\langle\\delta\\mu_i\\rangle;\\, 0,\\, \\sigma_i^2) $$
+              $$ \\times \\left[1 + \\frac{\\kappa_3}{6\\sigma_i^3}H_3\\left(\\frac{\\Delta\\mu - \\langle\\delta\\mu_i\\rangle}{\\sigma_i}\\right) + \\frac{\\kappa_4}{24\\sigma_i^4}H_4\\left(\\frac{\\Delta\\mu - \\langle\\delta\\mu_i\\rangle}{\\sigma_i}\\right)\\right] $$
+            </li>
+            <li style="margin-bottom: 0.8em;"><strong>Cumulants from ACE</strong>: The intrinsic scatter is purely Gaussian, contributing only to the variance, while \\(\\kappa_3\\) and \\(\\kappa_4\\) are predictions from the ACE emulator.</li>
+            <li><strong>Goal</strong>: Incorporates the dominant non-Gaussian features without running full convolutions.</li>
+          </ul>
+        `
+      },
+      full: {
+        title: "4. Full Convolution Likelihood",
+        body: `
+          <ul style="margin: 0; padding-left: 1.2em;  ">
+            <li style="margin-bottom: 0.8em;"><strong>Complete non-Gaussian Treatment</strong>: Performs a full mathematical convolution of the Gaussian intrinsic scatter with the complete, emulated lensing magnification PDF \\(p_{\\rm ACE}\\):
+              $$ \\mathcal{L}_i = \\int \\mathcal{N}(\\hat{\\mu}_i - \\mu_{\\rm th} - \\delta\\mu;\\, 0,\\, \\sigma_{\\rm int}^2 + \\sigma_{\\rm meas,i}^2) \\, p_{\\rm ace}(\\delta\\mu \\,|\\, z_i, \\theta) \\, \\mathrm{d}(\\delta\\mu) $$
+            </li>
+            <li style="margin-bottom: 0.8em;"><strong>High-Performance Execution</strong>: Fused parallel Numba kernels loop over supernovae in parallel, bypassing memory bottlenecks.</li>
+            <li style="margin-bottom: 0.8em;"><strong>Cosmological Constraints</strong>: Recovers fully unbiased, accurate posterior contours by correctly accounting for the physical lensing tail.</li>
+            <li><strong>Key Limitation</strong>: Assumes independent observations (diagonal covariance matrix)</li>
+          </ul>
+        `
+      }
+    };
+
+    // Mode modal interaction
+    const modeModal = document.getElementById('mode-modal');
+    const modeModalTitle = document.getElementById('mode-modal-title');
+    const modeModalBody = document.getElementById('mode-modal-body');
+
+    document.querySelectorAll('.compare-box[data-mode]').forEach(card => {
+      card.style.cursor = 'zoom-in';
+      card.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const mode = this.getAttribute('data-mode');
+        const detail = modeDetails[mode];
+        if (detail) {
+          modeModalTitle.textContent = detail.title;
+          modeModalBody.innerHTML = detail.body;
+          modeModal.style.display = 'flex';
+
+          // Re-typeset the modal content using MathJax
+          if (window.MathJax) {
+            MathJax.typesetPromise([modeModalBody]);
+          }
+        }
+      });
+    });
+
+    modeModal.addEventListener('click', function () {
+      modeModal.style.display = 'none';
+    });
+
+    document.getElementById('mode-modal-content').addEventListener('click', function (e) {
+      e.stopPropagation(); // Prevent closing when clicking content box
+    });
+
+    // Make words clickable to toggle bold styling, preserving MathJax equations and child tags
+    function makeWordsClickable(node) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const text = node.nodeValue;
+        if (!text || !text.trim()) return;
+
+        // Separate math expressions ($$...$$ or \(...\)) from normal text
+        const parts = text.split(/(\$\$[\s\S]*?\$\$|\\\([\s\S]*?\\\))/g);
+        const fragment = document.createDocumentFragment();
+
+        parts.forEach(part => {
+          if (!part) return;
+          if (part.startsWith('$$') || part.startsWith('\\(')) {
+            // Preserve math LaTeX intact
+            fragment.appendChild(document.createTextNode(part));
+          } else {
+            // Split normal text into clickable words
+            const tokens = part.split(/(\s+)/);
+            tokens.forEach(token => {
+              if (/\s+/.test(token)) {
+                fragment.appendChild(document.createTextNode(token));
+              } else if (token.length > 0) {
+                const span = document.createElement('span');
+                span.className = 'clickable-word';
+                span.textContent = token;
+                fragment.appendChild(span);
+              }
+            });
+          }
+        });
+        node.parentNode.replaceChild(fragment, node);
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        // Exclude MathJax wrappers and toonch-swap from word splitting
+        if (node.classList.contains('MathJax') || node.closest('.MathJax') || node.closest('#mode-modal') || node.classList.contains('toonch-swap') || node.closest('.toonch-swap')) {
+          return;
+        }
+        // Convert to array because childNodes is live
+        const children = Array.from(node.childNodes);
+        children.forEach(makeWordsClickable);
+      }
+    }
+
+    // Apply word-splitter to all text nodes within the slides container
+    makeWordsClickable(document.querySelector('.slides'));
+
+    // Word & Math equation & playground click handler
+    document.addEventListener('click', function (e) {
+      // Clear playground panel when clicking outside pipeline step boxes and playground
+      if (!e.target.closest('.pipe-step') && !e.target.closest('#pipeline-playground')) {
+        clearPlayground();
+      }
+
+      if (e.target.classList.contains('clickable-word')) {
+        e.target.classList.toggle('bold-word');
+      }
+
+      // Toggle highlight color on MathJax equations when clicked
+      const mathContainer = e.target.closest('mjx-container, .MathJax');
+      if (mathContainer) {
+        mathContainer.classList.toggle('bold-math');
+      }
+    });
+
+    // Pipeline Playground data & interactive handler
+    const pipelineData = {
+      1: {
+        title: "1. N-Body Simulations",
+        desc: "<i>OpenGadget3</i>, Dark matter only (DMO) simulations run across 70 cosmological parameter combinations (\\(\\Omega_m, h, w, \\sigma_8\\)).",
+        img: "simulation_param.png"
+      },
+      2: {
+        title: "2. Ray-Tracing & Past Light Cones",
+        desc: "Multiple ray-tracing simulations constructing past light cones to calculate gravitational lensing deflection & magnification maps.",
+        img: "raytracing1.png"
+      },
+      3: {
+        title: "3. Standardization and Principal Component Analysis (PCA)",
+        desc: " ",
+        imgs: ["standardization.png", "PCAs.png"],
+        layout: "vertical"
+      },
+      4: {
+        title: "4. XGBoost Machine Learning Training",
+        desc: "Gradient boosted decision trees: from (\\(\\Omega_m, h, w, \\sigma_8, z\\)) \\(\\to\\) 4 PCA components and (\\(\\mu, \\sigma\\)).",
+        imgs: ["pca.png", "mean.png", "sigma.png"],
+        layout: "vertical"
+      },
+      5: {
+        title: "5. Fast Lensing Emulator",
+        desc: "Instant millisecond prediction of full magnification PDFs for arbitrary cosmological parameters without running 24h simulations.",
+        img: "pdf.png"
+      },
+      6: {
+        title: "6. MCMC Parameter Inference",
+        desc: "Markov Chain Monte Carlo sampling yields tight cosmological parameter constraints from observational data in seconds.",
+        img: "run16_result.png"
+      }
+    };
+
+    function showPlaygroundStep(stepNum, event) {
+      if (event) event.stopPropagation();
+
+      const data = pipelineData[stepNum];
+      if (!data) return;
+
+      const steps = document.querySelectorAll('.pipeline .pipe-step');
+      steps.forEach((step, idx) => {
+        if (idx + 1 === stepNum) {
+          step.classList.add('active-step');
+        } else {
+          step.classList.remove('active-step');
+        }
+      });
+
+      const playground = document.getElementById('pipeline-playground');
+      // Toggle vertical vs horizontal flex direction
+      if (data.layout === "vertical") {
+        playground.style.flexDirection = 'column';
+        playground.style.maxWidth = '1000px';        // Limit card overall width
+        playground.style.maxHeight = '350px';        // Limit card overall width
+        playground.style.margin = '0.8em auto 0 auto'; // Center card inside slide
+        playground.style.gap = '0.6em';
+      } else {
+        playground.style.flexDirection = 'row';
+        playground.style.maxWidth = '100%';
+        playground.style.gap = '1.5em';
+      }
+      if (playground) {
+        playground.style.display = 'flex';
+        playground.style.opacity = '0.3';
+
+        setTimeout(() => {
+          document.querySelector('.playground-info').style.width = '100%';
+          document.getElementById('playground-title').textContent = data.title;
+          document.getElementById('playground-desc').innerHTML = data.desc;
+
+          const figContainer = document.querySelector('.playground-figure');
+
+          // If multiple images exist, render them side-by-side
+          if (data.imgs && data.imgs.length > 0) {
+            if (data.layout === "vertical") {
+              figContainer.innerHTML = data.imgs.map(imgSrc =>
+                `<img src="${imgSrc}" style="max-height: 180px; max-width: 100%; object-fit: contain; border-radius: 6px; border: 1px solid var(--border-brand-subtle); margin-left:0.2em; margin-right:0.2em;"/>`
+              ).join(' &nbsp; ');
+            } else {
+              figContainer.innerHTML = data.imgs.map(imgSrc =>
+                `<img src="${imgSrc}" style="max-height: 180px; max-width: 32%; object-fit: contain; border-radius: 6px; border: 1px solid var(--border-brand-subtle);"/>`
+              ).join('');
+            }
+          } else {
+            if (data.layout === "vertical") {
+              // Fallback for single image
+              figContainer.innerHTML = `<img id="playground-img" src="${data.img}" alt="Pipeline Step Preview" style="padding-left:20em; padding-right:20em;" />`;
+            } else {
+              figContainer.innerHTML = `<img id="playground-img" src="${data.img}" alt="Pipeline Step Preview" />`;
+            }
+          }
+
+          if (window.MathJax && window.MathJax.typesetPromise) {
+            window.MathJax.typesetPromise([document.getElementById('playground-desc')]);
+          }
+          playground.style.opacity = '1';
+        }, 150);
+      }
+    }
+
+    function clearPlayground() {
+      const steps = document.querySelectorAll('.pipeline .pipe-step');
+      steps.forEach(step => step.classList.remove('active-step'));
+
+      const playground = document.getElementById('pipeline-playground');
+      if (playground) {
+        playground.style.display = 'none';
+      }
+    }
+
+    // Swap "Tunç" to "toonch" and toggle styles simultaneously on all instances
+    function toggleToonch(el) {
+      const allSwaps = document.querySelectorAll('.toonch-swap');
+      const isCurrentlyTunc = el.textContent === "Tunç";
+      allSwaps.forEach(swap => {
+        if (isCurrentlyTunc) {
+          swap.textContent = "Toonch";
+          swap.classList.add("toonched");
+        } else {
+          swap.textContent = "Tunç";
+          swap.classList.remove("toonched");
+        }
+      });
+    }
+
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: false,
+      transition: 'fade',
+      transitionSpeed: 'fast',
+      backgroundTransition: 'fade',
+      width: 1280,
+      height: 720,
+      margin: 0.08,
+      plugins: [RevealMath.MathJax3]
+    });
+  </script>
+</body>
+
+</html>
